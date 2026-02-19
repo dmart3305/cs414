@@ -21,7 +21,7 @@ const FEATURED_COUNTRIES = [
     region: "Europe",
     description:
       "Placeholder",
-    flag: "",
+    flag: '\uD83C\uDDEB\uD83C\uDDF7',
   },
   {
     name: "Placeholder",
