@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { MapPin } from "lucide-react";
 
 interface CountryCardProps {
@@ -13,8 +14,13 @@ export function CountryCard({
   description,
   flag,
 }: CountryCardProps) {
+  const slug = name.toLowerCase().replace(/\s+/g, "-");
+
   return (
-    <div className="group flex flex-col rounded-xl border border-border bg-card p-5 hover:border-primary/30 hover:shadow-sm transition-all cursor-pointer">
+    <Link
+      href={`/protected/country/${slug}`}
+      className="group flex flex-col rounded-xl border border-border bg-card p-5 hover:border-primary/30 hover:shadow-sm transition-all"
+    >
       <div className="flex items-start gap-4">
         <span className="text-4xl" role="img" aria-label={`${name} flag`}>
           {flag}
@@ -32,6 +38,6 @@ export function CountryCard({
       <p className="mt-3 text-sm text-muted-foreground leading-relaxed line-clamp-2">
         {description}
       </p>
-    </div>
+    </Link>
   );
 }
