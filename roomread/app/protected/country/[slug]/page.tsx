@@ -17,6 +17,13 @@ const COUNTRIES: Record<
   string,
   { name: string; region: string; flag: string; description: string }
 > = {
+  france: {
+    name: "France",
+    region: "Europe",
+    flag: "\u{1F1EB}\u{1F1F7}",
+    description:
+      "Discover the art of French dining etiquette, the importance of greetings with a bisou, and navigating formal vs. informal address.",
+  },
   japan: {
     name: "Japan",
     region: "East Asia",
