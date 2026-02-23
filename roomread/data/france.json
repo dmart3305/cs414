@@ -1,0 +1,262 @@
+[
+  {
+    "country": "France",
+    "category": "Dining Etiquette",
+    "question": "What should you do if you want the check at a French restaurant?",
+    "options": [
+      "Wait for the server to automatically bring it",
+      "Snap your fingers",
+      "Ask for it by saying 'L’addition, s’il vous plaît'",
+      "Stand up and walk to the register"
+    ],
+    "correctIndex": 2,
+    "explanation": "In France, servers will not automatically bring the check. You must politely request it."
+  },
+  {
+    "country": "France",
+    "category": "Dining Etiquette",
+    "question": "Where is bread typically placed during a French meal?",
+    "options": [
+      "On a separate bread plate",
+      "Wrapped in a napkin",
+      "Directly on the table",
+      "On the floor beside the chair"
+    ],
+    "correctIndex": 2,
+    "explanation": "Bread is traditionally placed directly on the table rather than on a plate."
+  },
+  {
+    "country": "France",
+    "category": "Dining Etiquette",
+    "question": "How are meals typically treated in France?",
+    "options": [
+      "Quick and efficient",
+      "Social and meant to be enjoyed slowly",
+      "Optional and flexible",
+      "Completed within 30 minutes"
+    ],
+    "correctIndex": 1,
+    "explanation": "Meals in France are social experiences meant to be enjoyed slowly."
+  },
+  {
+    "country": "France",
+    "category": "Dining Etiquette",
+    "question": "How does tipping work in France?",
+    "options": [
+      "20% is mandatory",
+      "Tipping is included; rounding up is appreciated",
+      "No tipping allowed",
+      "You must tip before the meal"
+    ],
+    "correctIndex": 1,
+    "explanation": "Service is included in the bill, but rounding up or leaving small change is appreciated."
+  },
+  {
+    "country": "France",
+    "category": "Dining Etiquette",
+    "question": "At cafés, which seating option is usually the most expensive?",
+    "options": [
+      "Standing at the bar",
+      "Sitting inside",
+      "Sitting outside",
+      "Near the restroom"
+    ],
+    "correctIndex": 2,
+    "explanation": "Outdoor seating costs more because you are paying for location and atmosphere."
+  },
+  {
+    "country": "France",
+    "category": "Greetings & Gestures",
+    "question": "What should you always say before asking a question in France?",
+    "options": [
+      "Excuse me",
+      "Bonjour",
+      "Hey",
+      "Hello there"
+    ],
+    "correctIndex": 1,
+    "explanation": "Greeting someone before speaking is considered essential in French culture."
+  },
+  {
+    "country": "France",
+    "category": "Greetings & Gestures",
+    "question": "How do friends commonly greet each other in France?",
+    "options": [
+      "High five",
+      "Bow",
+      "La bise (light cheek kisses)",
+      "Fist bump"
+    ],
+    "correctIndex": 2,
+    "explanation": "Friends often greet with la bise, a light cheek kiss."
+  },
+  {
+    "country": "France",
+    "category": "Greetings & Gestures",
+    "question": "What should you do when entering a small shop?",
+    "options": [
+      "Begin browsing silently",
+      "Greet the shopkeeper",
+      "Avoid eye contact",
+      "Ask for discounts immediately"
+    ],
+    "correctIndex": 1,
+    "explanation": "It is polite to greet shopkeepers when entering and say goodbye when leaving."
+  },
+  {
+    "country": "France",
+    "category": "Greetings & Gestures",
+    "question": "What volume level is considered appropriate in public?",
+    "options": [
+      "Loud and energetic",
+      "Moderate and calm",
+      "Shouting to be heard",
+      "Whispering only"
+    ],
+    "correctIndex": 1,
+    "explanation": "Moderate and calm voices are preferred in public settings."
+  },
+  {
+    "country": "France",
+    "category": "Communication Styles",
+    "question": "In French culture, debating often means:",
+    "options": [
+      "You are angry",
+      "You dislike the other person",
+      "Intellectual engagement and respect",
+      "The conversation is over"
+    ],
+    "correctIndex": 2,
+    "explanation": "Debating is seen as intellectual bonding and engagement."
+  },
+  {
+    "country": "France",
+    "category": "Communication Styles",
+    "question": "Silence during conversation may be interpreted as:",
+    "options": [
+      "Thoughtfulness",
+      "Disengagement",
+      "Excitement",
+      "Celebration"
+    ],
+    "correctIndex": 1,
+    "explanation": "Silence may be interpreted as disengagement rather than reflection."
+  },
+  {
+    "country": "France",
+    "category": "Communication Styles",
+    "question": "How are restaurant servers typically perceived in France?",
+    "options": [
+      "Overly friendly",
+      "Constantly checking in",
+      "Professional and non-intrusive",
+      "Untrained"
+    ],
+    "correctIndex": 2,
+    "explanation": "Servers are professional and will not interrupt unless needed."
+  },
+  {
+    "country": "France",
+    "category": "Communication Styles",
+    "question": "What is valued in conversation?",
+    "options": [
+      "Loud humor",
+      "Intellectual discussion",
+      "Personal gossip",
+      "Speed"
+    ],
+    "correctIndex": 1,
+    "explanation": "Intellectual and thoughtful discussion is highly valued."
+  },
+  {
+    "country": "France",
+    "category": "Religious & Sacred Sites",
+    "question": "When visiting churches or sacred sites in France, you should:",
+    "options": [
+      "Speak loudly",
+      "Dress modestly and behave respectfully",
+      "Take flash photos during services",
+      "Eat inside"
+    ],
+    "correctIndex": 1,
+    "explanation": "Respectful dress and behavior are expected at sacred sites."
+  },
+  {
+    "country": "France",
+    "category": "Religious & Sacred Sites",
+    "question": "Why is respectful behavior important at sacred sites?",
+    "options": [
+      "It is a tourist rule only",
+      "France values heritage and cultural pride",
+      "Police require it",
+      "For better photos"
+    ],
+    "correctIndex": 1,
+    "explanation": "France strongly values its cultural and religious heritage."
+  },
+  {
+    "country": "France",
+    "category": "Dress Codes",
+    "question": "Which clothing style is most appropriate in France?",
+    "options": [
+      "Flashy tourist clothing",
+      "Casual but neat and understated",
+      "Pajamas",
+      "Athletic uniforms everywhere"
+    ],
+    "correctIndex": 1,
+    "explanation": "French style tends to favor neat, understated clothing."
+  },
+  {
+    "country": "France",
+    "category": "Dress Codes",
+    "question": "Why is appearance important in France?",
+    "options": [
+      "Fashion is part of cultural identity and pride",
+      "It is required by law",
+      "Tourists must dress up",
+      "Restaurants demand it"
+    ],
+    "correctIndex": 0,
+    "explanation": "Fashion and presentation are tied to cultural identity."
+  },
+  {
+    "country": "France",
+    "category": "Time & Punctuality",
+    "question": "What commonly happens in France during August?",
+    "options": [
+      "Everything opens late",
+      "Many small businesses close for vacation",
+      "National exams occur",
+      "School year starts"
+    ],
+    "correctIndex": 1,
+    "explanation": "August is a major vacation month and many businesses close."
+  },
+  {
+    "country": "France",
+    "category": "Time & Punctuality",
+    "question": "How are Sundays typically treated?",
+    "options": [
+      "Major shopping day",
+      "Many shops are closed",
+      "Free market day",
+      "Extended business hours"
+    ],
+    "correctIndex": 1,
+    "explanation": "Many businesses close on Sundays."
+  },
+  {
+    "country": "France",
+    "category": "Time & Punctuality",
+    "question": "Why might cities feel quieter in August?",
+    "options": [
+      "Bad weather",
+      "National curfew",
+      "Many residents go on vacation",
+      "Internet outage"
+    ],
+    "correctIndex": 2,
+    "explanation": "Large portions of the population travel during August holidays."
+  }
+]
