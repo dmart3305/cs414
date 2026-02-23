@@ -1,19 +1,12 @@
+import { Suspense } from "react";
 import { redirect, notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { DashboardHeader } from "@/components/dashboard-header";
-import { CategoryCard } from "@/components/category-card";
-import {
-  Utensils,
-  HandshakeIcon,
-  MessageCircle,
-  ShieldCheck,
-  Shirt,
-  Clock,
-  ArrowLeft,
-} from "lucide-react";
+import { CountryCategories } from "@/components/country-categories";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-// Country info
+// Country Description
 const COUNTRIES: Record<
   string,
   { name: string; region: string; flag: string; description: string }
@@ -27,49 +20,6 @@ const COUNTRIES: Record<
   },
   
 };
-
-// Category info
-const CATEGORIES = [
-  {
-    title: "Dining Etiquette",
-    description: "Table manners, tipping customs, and food-related traditions",
-    icon: Utensils,
-    count: 0,
-  },
-  {
-    title: "Greetings & Gestures",
-    description: "How to properly greet locals and avoid offensive gestures",
-    icon: HandshakeIcon,
-    count: 0,
-  },
-  {
-    title: "Communication Styles",
-    description: "Verbal and non-verbal communication norms across cultures",
-    icon: MessageCircle,
-    count: 0,
-  },
-  {
-    title: "Religious & Sacred Sites",
-    description:
-      "Respectful practices when visiting temples, churches, and mosques",
-    icon: ShieldCheck,
-    count: 0,
-  },
-  {
-    title: "Dress Codes",
-    description:
-      "What to wear and what to avoid in different cultural contexts",
-    icon: Shirt,
-    count: 0,
-  },
-  {
-    title: "Time & Punctuality",
-    description:
-      "Expectations around timeliness and scheduling in different regions",
-    icon: Clock,
-    count: 0,
-  },
-];
 
 export default async function CountryPage({
   params,
@@ -100,7 +50,6 @@ export default async function CountryPage({
       />
 
       <main className="mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">
-        {/* Back link */}
         <Link
           href="/protected"
           className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
@@ -109,7 +58,6 @@ export default async function CountryPage({
           Back to all countries
         </Link>
 
-        {/* Country header */}
         <section className="mb-10">
           <div className="flex items-start gap-4">
             <span
@@ -133,16 +81,13 @@ export default async function CountryPage({
           </div>
         </section>
 
-        {/* Categories */}
         <section>
           <h2 className="text-xl font-bold text-foreground tracking-tight mb-5">
-            {"Explore customs and norms in " + country.name}
+            {"Explore etiquette in " + country.name}
           </h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {CATEGORIES.map((category) => (
-              <CategoryCard key={category.title} {...category} />
-            ))}
-          </div>
+          <Suspense fallback={<div className="text-muted-foreground">Loading categories...</div>}>
+            <CountryCategories slug={slug} />
+          </Suspense>
         </section>
       </main>
     </div>
