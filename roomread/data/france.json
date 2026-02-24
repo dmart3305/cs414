@@ -1,262 +1,325 @@
-[
-  {
-    "country": "France",
-    "category": "Dining Etiquette",
-    "question": "What should you do if you want the check at a French restaurant?",
-    "options": [
-      "Wait for the server to automatically bring it",
-      "Snap your fingers",
-      "Ask for it by saying 'L’addition, s’il vous plaît'",
-      "Stand up and walk to the register"
-    ],
-    "correctIndex": 2,
-    "explanation": "In France, servers will not automatically bring the check. You must politely request it."
-  },
-  {
-    "country": "France",
-    "category": "Dining Etiquette",
-    "question": "Where is bread typically placed during a French meal?",
-    "options": [
-      "On a separate bread plate",
-      "Wrapped in a napkin",
-      "Directly on the table",
-      "On the floor beside the chair"
-    ],
-    "correctIndex": 2,
-    "explanation": "Bread is traditionally placed directly on the table rather than on a plate."
-  },
-  {
-    "country": "France",
-    "category": "Dining Etiquette",
-    "question": "How are meals typically treated in France?",
-    "options": [
-      "Quick and efficient",
-      "Social and meant to be enjoyed slowly",
-      "Optional and flexible",
-      "Completed within 30 minutes"
-    ],
-    "correctIndex": 1,
-    "explanation": "Meals in France are social experiences meant to be enjoyed slowly."
-  },
-  {
-    "country": "France",
-    "category": "Dining Etiquette",
-    "question": "How does tipping work in France?",
-    "options": [
-      "20% is mandatory",
-      "Tipping is included; rounding up is appreciated",
-      "No tipping allowed",
-      "You must tip before the meal"
-    ],
-    "correctIndex": 1,
-    "explanation": "Service is included in the bill, but rounding up or leaving small change is appreciated."
-  },
-  {
-    "country": "France",
-    "category": "Dining Etiquette",
-    "question": "At cafés, which seating option is usually the most expensive?",
-    "options": [
-      "Standing at the bar",
-      "Sitting inside",
-      "Sitting outside",
-      "Near the restroom"
-    ],
-    "correctIndex": 2,
-    "explanation": "Outdoor seating costs more because you are paying for location and atmosphere."
-  },
-  {
-    "country": "France",
-    "category": "Greetings & Gestures",
-    "question": "What should you always say before asking a question in France?",
-    "options": [
-      "Excuse me",
-      "Bonjour",
-      "Hey",
-      "Hello there"
-    ],
-    "correctIndex": 1,
-    "explanation": "Greeting someone before speaking is considered essential in French culture."
-  },
-  {
-    "country": "France",
-    "category": "Greetings & Gestures",
-    "question": "How do friends commonly greet each other in France?",
-    "options": [
-      "High five",
-      "Bow",
-      "La bise (light cheek kisses)",
-      "Fist bump"
-    ],
-    "correctIndex": 2,
-    "explanation": "Friends often greet with la bise, a light cheek kiss."
-  },
-  {
-    "country": "France",
-    "category": "Greetings & Gestures",
-    "question": "What should you do when entering a small shop?",
-    "options": [
-      "Begin browsing silently",
-      "Greet the shopkeeper",
-      "Avoid eye contact",
-      "Ask for discounts immediately"
-    ],
-    "correctIndex": 1,
-    "explanation": "It is polite to greet shopkeepers when entering and say goodbye when leaving."
-  },
-  {
-    "country": "France",
-    "category": "Greetings & Gestures",
-    "question": "What volume level is considered appropriate in public?",
-    "options": [
-      "Loud and energetic",
-      "Moderate and calm",
-      "Shouting to be heard",
-      "Whispering only"
-    ],
-    "correctIndex": 1,
-    "explanation": "Moderate and calm voices are preferred in public settings."
-  },
-  {
-    "country": "France",
-    "category": "Communication Styles",
-    "question": "In French culture, debating often means:",
-    "options": [
-      "You are angry",
-      "You dislike the other person",
-      "Intellectual engagement and respect",
-      "The conversation is over"
-    ],
-    "correctIndex": 2,
-    "explanation": "Debating is seen as intellectual bonding and engagement."
-  },
-  {
-    "country": "France",
-    "category": "Communication Styles",
-    "question": "Silence during conversation may be interpreted as:",
-    "options": [
-      "Thoughtfulness",
-      "Disengagement",
-      "Excitement",
-      "Celebration"
-    ],
-    "correctIndex": 1,
-    "explanation": "Silence may be interpreted as disengagement rather than reflection."
-  },
-  {
-    "country": "France",
-    "category": "Communication Styles",
-    "question": "How are restaurant servers typically perceived in France?",
-    "options": [
-      "Overly friendly",
-      "Constantly checking in",
-      "Professional and non-intrusive",
-      "Untrained"
-    ],
-    "correctIndex": 2,
-    "explanation": "Servers are professional and will not interrupt unless needed."
-  },
-  {
-    "country": "France",
-    "category": "Communication Styles",
-    "question": "What is valued in conversation?",
-    "options": [
-      "Loud humor",
-      "Intellectual discussion",
-      "Personal gossip",
-      "Speed"
-    ],
-    "correctIndex": 1,
-    "explanation": "Intellectual and thoughtful discussion is highly valued."
-  },
-  {
-    "country": "France",
-    "category": "Religious & Sacred Sites",
-    "question": "When visiting churches or sacred sites in France, you should:",
-    "options": [
-      "Speak loudly",
-      "Dress modestly and behave respectfully",
-      "Take flash photos during services",
-      "Eat inside"
-    ],
-    "correctIndex": 1,
-    "explanation": "Respectful dress and behavior are expected at sacred sites."
-  },
-  {
-    "country": "France",
-    "category": "Religious & Sacred Sites",
-    "question": "Why is respectful behavior important at sacred sites?",
-    "options": [
-      "It is a tourist rule only",
-      "France values heritage and cultural pride",
-      "Police require it",
-      "For better photos"
-    ],
-    "correctIndex": 1,
-    "explanation": "France strongly values its cultural and religious heritage."
-  },
-  {
-    "country": "France",
-    "category": "Dress Codes",
-    "question": "Which clothing style is most appropriate in France?",
-    "options": [
-      "Flashy tourist clothing",
-      "Casual but neat and understated",
-      "Pajamas",
-      "Athletic uniforms everywhere"
-    ],
-    "correctIndex": 1,
-    "explanation": "French style tends to favor neat, understated clothing."
-  },
-  {
-    "country": "France",
-    "category": "Dress Codes",
-    "question": "Why is appearance important in France?",
-    "options": [
-      "Fashion is part of cultural identity and pride",
-      "It is required by law",
-      "Tourists must dress up",
-      "Restaurants demand it"
-    ],
-    "correctIndex": 0,
-    "explanation": "Fashion and presentation are tied to cultural identity."
-  },
-  {
-    "country": "France",
-    "category": "Time & Punctuality",
-    "question": "What commonly happens in France during August?",
-    "options": [
-      "Everything opens late",
-      "Many small businesses close for vacation",
-      "National exams occur",
-      "School year starts"
-    ],
-    "correctIndex": 1,
-    "explanation": "August is a major vacation month and many businesses close."
-  },
-  {
-    "country": "France",
-    "category": "Time & Punctuality",
-    "question": "How are Sundays typically treated?",
-    "options": [
-      "Major shopping day",
-      "Many shops are closed",
-      "Free market day",
-      "Extended business hours"
-    ],
-    "correctIndex": 1,
-    "explanation": "Many businesses close on Sundays."
-  },
-  {
-    "country": "France",
-    "category": "Time & Punctuality",
-    "question": "Why might cities feel quieter in August?",
-    "options": [
-      "Bad weather",
-      "National curfew",
-      "Many residents go on vacation",
-      "Internet outage"
-    ],
-    "correctIndex": 2,
-    "explanation": "Large portions of the population travel during August holidays."
-  }
-]
+{
+  "country": "France",
+  "categories": [
+    {
+      "category": "Dining Etiquette",
+      "lesson": {
+        "title": "Dining Etiquette in France",
+        "intro": "Meals in France are more than just eating — they are social rituals that reflect cultural values. From the sequence of courses to the subtleties of table manners, understanding French dining etiquette will help you dine confidently and respectfully.",
+        "content": [
+          {
+            "type": "text",
+            "text": "French meals are often slow, structured, and shared with others. Dinner typically begins later in the evening and can involve multiple courses that are meant to be savored, not rushed. Meals are a time to connect, converse, and enjoy the moment."
+          },
+          {
+            "type": "text",
+            "text": "A traditional formal meal can include a pre-meal drink (apéritif), a starter (entrée), the main course (plat principal), a cheese course (fromage), dessert, coffee (café), and sometimes a digestif afterward. Each course serves a purpose and contributes to a leisurely dining experience."
+          },
+          {
+            "type": "text",
+            "text": "Before eating, it’s polite to wait until everyone is served and to say “Bon appétit!” This signals respect and shows that you are participating in the social experience of the meal."
+          },
+          {
+            "type": "text",
+            "text": "Bread is usually placed directly on the tablecloth (or a designated bread plate). In formal settings, you tear the bread with your hands instead of cutting it with a knife. Bread is not typically eaten by itself before courses start."
+          },
+          {
+            "type": "text",
+            "text": "French table manners emphasize visible hands and proper use of utensils. Keep your hands on the table (wrists visible) and avoid resting elbows on it. The fork stays in the left hand and the knife in the right throughout the meal."
+          },
+          {
+            "type": "text",
+            "text": "Don’t cut your salad or pasta with a knife; instead fold or twirl them using your fork and knife together. If you need to rest your cutlery between bites, place them on your plate rather than on the tablecloth."
+          },
+          {
+            "type": "text",
+            "text": "Wine and water are common companions at French meals. Wine is usually ordered by the host and poured for others before self-serving. Many French restaurants serve tap water (carafe d’eau) on request."
+          },
+          {
+            "type": "text",
+            "text": "Tipping in France is different from many other countries. Service is usually included in the bill by law, so additional tipping is optional. Leaving a small amount for good service is appreciated but not required."
+          },
+          {
+            "type": "text",
+            "text": "Overall, French dining etiquette reflects respect, elegance, and slow enjoyment. Following these customs will help you dine politely and connect more deeply with the culture."
+          },
+          {
+            "type": "question",
+            "question": "When is it appropriate to start eating in a French meal?",
+            "options": [
+              "As soon as your food arrives",
+              "After everyone has been served and you say “Bon appétit!”",
+              "Once the host finishes their food",
+              "Only after coffee is served"
+            ],
+            "correctIndex": 1,
+            "explanation": "You should wait until everyone has their food and the group has said “Bon appétit!” before beginning to eat."
+          },
+          {
+            "type": "question",
+            "question": "Which course is typically served AFTER the main course in a French meal?",
+            "options": [
+              "Apéritif",
+              "Entrée",
+              "Fromage (cheese)",
+              "Dessert"
+            ],
+            "correctIndex": 2,
+            "explanation": "In France, cheese (fromage) is often served after the main course and before dessert."
+          },
+          {
+            "type": "question",
+            "question": "Which drink is most commonly served with meals in France?",
+            "options": [
+              "Cocktails",
+              "Soft drinks",
+              "Wine or water",
+              "Milk"
+            ],
+            "correctIndex": 2,
+            "explanation": "Wine and water are the most common drinks during a French meal. Cocktails or soft drinks are less typical with meal courses."
+          },
+          {
+            "type": "question",
+            "question": "Which of these is considered proper French table etiquette?",
+            "options": [
+              "Keeping your elbows on the table",
+              "Switching fork and knife hands mid-meal",
+              "Keeping your hands visible on the table",
+              "Eating bread directly off your plate"
+            ],
+            "correctIndex": 2,
+            "explanation": "Proper French etiquette suggests keeping your hands visible on the table and using utensils correctly throughout the meal."
+          }
+
+        ],
+        "summary": "French dining is a cultural experience that values structure, manners, and the pleasure of shared meals. Understanding the courses, bread and utensil etiquette, and conversational norms will make your dining experience respectful and enjoyable."
+      }
+    },
+    {
+      "category": "Greetings & Gestures",
+      "lesson": {
+        "title": "Greetings & Social Etiquette in France",
+        "intro": "In France, greetings and social manners are fundamental to daily life. A polite greeting sets the tone for all interactions, and gestures — both verbal and physical — play an important role in showing respect and friendliness. Learning these basics will help you avoid cultural faux pas and connect more positively with locals.",
+        "content": [
+          {
+            "type": "text",
+            "text": "The most important cultural norm in France is to greet people politely before beginning any conversation or request. Saying “Bonjour” (pronounced bown·zhoor) to say hello/good day during the daytime or “Bonsoir” (pronounced bohn-SWAHR) to say good evening after about 6 p.m. shows respect and is considered essential at shops, cafes, businesses, and social encounters."
+          },
+          {
+            "type": "text",
+            "text": "When you greet someone formally or for the first time, it’s polite to include a title such as “Monsieur” (Mr.) or “Madame” (Mrs./Ms.). Using “Salut” is informal and reserved for friends or people you already know well."
+          },
+          {
+            "type": "text",
+            "text": "After greeting someone verbally, appropriate physical greetings depend on the relationship. In business or formal situations, a brief, firm handshake is standard. Among friends, family, or acquaintances, the French often exchange cheek kisses (la bise)."
+          },
+          {
+            "type": "text",
+            "text": "La bise is performed by lightly touching cheeks and making a kissing sound in the air. Only initiate it if the other person leans in first, especially in unfamiliar or formal contexts."
+          },
+          {
+            "type": "text",
+            "text": "Politeness extends beyond the words you use. French social etiquette places emphasis on body language: maintain gentle eye contact, keep your hands visible (not in your pockets), and avoid overly personal gestures unless you know someone well."
+          },
+          {
+            "type": "text",
+            "text": "Basic polite expressions are expected in everyday interactions. Common phrases include “S’il vous plaît” (please), “Merci” (thank you), and “Au revoir” (goodbye). Using these phrases appropriately signals respect for French social norms."
+          },
+          {
+            "type": "text",
+            "text": "French language etiquette also extends to how you address others. In formal or unfamiliar situations, use the formal pronoun “vous.” (e.g. Parlez-vous...) Switching to the informal “tu” is acceptable only when invited to do so by the other person."
+          },
+          {
+            "type": "text",
+            "text": "When entering a store, café, or elevator, it’s customary to greet those around you with a polite greeting such as “Bonjour” before beginning any conversation or transaction. Failing to greet people first can be perceived as rude."
+          },
+          {
+            "type": "text",
+            "text": "Farewells are also important. After parting ways, common phrases include “Au revoir” (goodbye), “Bonne journée” (have a good day), or “Bonne soirée” (have a good evening). A simple 'salut' is also an acceptable way to say goodbye, similar to how it is used as a informal greeting. A polite farewell acknowledges each person individually rather than just the group."
+          },
+          {
+            "type": "text",
+            "text": "French body language can also communicate politeness. Avoid overly large gestures, pointing with the index finger, or placing hands in pockets. Instead, use open-handed gestures and maintain respectful posture."
+          },
+          {
+            "type": "question",
+            "question": "Which greeting is appropriate to use during the daytime in France?",
+            "options": [
+              "Bonsoir",
+              "Salut",
+              "Bonjour",
+              "Coucou"
+            ],
+            "correctIndex": 2,
+            "explanation": "“Bonjour” is the most common and polite greeting used during daytime in France."
+          },
+          {
+            "type": "question",
+            "question": "What physical greeting is commonly used among friends and acquaintances in France?",
+            "options": [
+              "Hug",
+              "La bise (cheek kisses)",
+              "High five",
+              "Bow"
+            ],
+            "correctIndex": 1,
+            "explanation": "La bise, or exchanging cheek kisses, is a common friendly greeting in France."
+          },
+          {
+            "type": "question",
+            "question": "Which of the following should you do before speaking to someone in a shop or café?",
+            "options": [
+              "Ask your question immediately",
+              "Wait for them to greet you",
+              "Say “Bonjour” first",
+              "Ignore formal greetings"
+            ],
+            "correctIndex": 2,
+            "explanation": "It’s considered polite in France to say “Bonjour” before beginning a conversation or making a request."
+          },
+          {
+            "type": "question",
+            "question": "In a formal situation with a stranger, you should address them as:",
+            "options": [
+              "Their first name only",
+              "Salut",
+              "Monsieur or Madame",
+              "Coucou"
+            ],
+            "correctIndex": 2,
+            "explanation": "In formal contexts in France, addressing someone as “Monsieur” or “Madame” shows respect."
+          },
+          {
+            "type": "question",
+            "question": "Which pronoun should you use to show respect when speaking to someone you don’t know?",
+            "options": [
+              "tu",
+              "vous",
+              "toi",
+              "on"
+            ],
+            "correctIndex": 1,
+            "explanation": "Using “vous” instead of “tu” is the polite and formal way to address someone unfamiliar in French culture."
+          }
+        ],
+        "summary": "In France, greetings and etiquette are deeply rooted in respect and politeness. Starting interactions with appropriate greetings, polite expressions, and respectful gestures will help you make a positive impression and navigate social settings with confidence."
+      }
+    },
+    {
+      "category": "Religious & Sacred Sites",
+      "lesson": {
+        "title": "Visiting Religious & Sacred Sites in France",
+        "intro": "France is home to some of the most significant religious and sacred sites in the world, from grand Gothic cathedrals to centuries-old pilgrimage destinations. Whether you are visiting as a believer or a curious traveler, understanding the importance of these places and how to behave respectfully will enrich your experience and show consideration for those who hold them sacred.",
+        "content": [
+          {
+            "type": "text",
+            "text": "France has a deeply rooted Catholic tradition, and its most visited sacred sites reflect that heritage. Among the most well-known are Notre-Dame de Paris, the Sanctuary of Our Lady of Lourdes, Mont-Saint-Michel, and Rocamadour. Each of these sites draws millions of visitors every year and remains an active place of worship, not just a tourist attraction."
+          },
+          {
+            "type": "text",
+            "text": "Lourdes, in southwest France, is one of the most important Christian pilgrimage sites in the world, attracting around five million visitors annually. In 1858, a young girl named Bernadette Soubirous reported visions of the Virgin Mary there. The Catholic Church has since recognized dozens of miraculous healings attributed to the site's spring waters, making Lourdes a destination for pilgrims seeking spiritual comfort and healing.",
+            "image": {
+              "src": "", 
+              "alt": "The Basilica of Our Lady of Lourdes, a major pilgrimage site in France"
+            }
+
+          },
+          {
+            "type": "text",
+            "text": "Mont-Saint-Michel is a dramatic island abbey rising from the sea off the coast of Normandy. It has been a place of pilgrimage since the 8th century, when it was dedicated to the Archangel Michael. Today it is a UNESCO World Heritage Site and receives over three million visitors per year, while still serving as an active monastic community."
+          },
+          {
+            "type": "text",
+            "text": "Rocamadour, dramatically built into a cliff face in southwest France, is another major pilgrimage destination. It is home to a revered 12th-century Black Madonna and has drawn pilgrims for centuries as a stop along the Way of Saint James — the famous pilgrimage route leading to Santiago de Compostela in Spain."
+          },
+          {
+            "type": "text",
+            "text": "France is also home to important non-Christian sacred sites. The Grand Mosque of Paris, built in the 1920s to honor Muslim soldiers who died in World War I, is the oldest mosque on mainland France and welcomes visitors. The Grand Synagogue of Lyon is one of the most historically significant Jewish sites in the country. Each type of sacred site may have its own specific entry customs, so it is worth researching guidelines before your visit."
+          },
+          {
+            "type": "text",
+            "text": "Dress modestly when visiting any religious site. For churches and cathedrals, both men and women should have their shoulders and knees covered. Avoid sleeveless tops, shorts, short skirts, and low necklines. If you arrive in casual clothing, bringing a light scarf or shawl to drape over your shoulders or waist is a simple and practical solution."
+          },
+          {
+            "type": "text",
+            "text": "Always remove hats or caps before entering a church or cathedral. In contrast, mosques require women to cover their hair, and some synagogues ask men to wear a head covering. Knowing these differences in advance will help you prepare appropriately for each type of site."
+          },
+          {
+            "type": "text",
+            "text": "Keep noise to a minimum inside sacred spaces. Speak quietly and switch your phone to silent before entering. Be especially mindful of others who may be praying — avoid walking directly in front of someone at prayer, and never interrupt an active religious service."
+          },
+          {
+            "type": "text",
+            "text": "Photography rules vary from site to site. Many churches and cathedrals permit photography but prohibit flash, while others ban cameras entirely in certain areas. Always look for posted signs before taking photos, and never photograph during an active Mass, ceremony, or service. When in doubt, ask a staff member or guard before taking out your camera."
+          },
+          {
+            "type": "text",
+            "text": "Do not eat, drink, or chew gum inside a place of worship. These are considered disrespectful behaviors in sacred spaces. Many sacred sites are also active religious communities where monks, nuns, or clergy live and practice their faith — treat these environments with the calm and courtesy you would show in someone's home."
+          },
+          {
+            "type": "question",
+            "question": "Which of these is one of the most visited Christian pilgrimage sites in France?",
+            "options": [
+              "The Louvre Museum",
+              "The Sanctuary of Our Lady of Lourdes",
+              "The Eiffel Tower",
+              "The Palace of Versailles"
+            ],
+            "correctIndex": 1,
+            "explanation": "Lourdes is one of the most important Christian pilgrimage sites in the world, drawing around five million visitors per year due to its association with apparitions of the Virgin Mary and reported miraculous healings."
+          },
+          {
+            "type": "question",
+            "question": "What is the appropriate dress code when visiting a church or cathedral in France?",
+            "options": [
+              "Any casual clothing is acceptable, including shorts and tank tops",
+              "Shoulders and knees should be covered",
+              "You must wear formal black attire",
+              "There is no dress code at religious sites"
+            ],
+            "correctIndex": 1,
+            "explanation": "Modest dress is expected at religious sites in France. Both shoulders and knees should be covered, and a scarf or shawl is a handy solution if your outfit is more casual."
+          },
+          {
+            "type": "question",
+            "question": "What should you do with your phone before entering a sacred site?",
+            "options": [
+              "Turn it off and leave it outside",
+              "Keep it on loud in case of emergencies",
+              "Switch it to silent mode",
+              "Use it freely for photos and messages"
+            ],
+            "correctIndex": 2,
+            "explanation": "Phones should be switched to silent when entering a place of worship to avoid disturbing those who are praying or attending a service."
+          },
+          {
+            "type": "question",
+            "question": "Which of the following is NOT acceptable behavior inside a French church or cathedral?",
+            "options": [
+              "Speaking quietly",
+              "Eating a snack",
+              "Observing the artwork respectfully",
+              "Sitting quietly in a pew"
+            ],
+            "correctIndex": 1,
+            "explanation": "Eating, drinking, and chewing gum inside a place of worship is disrespectful. These activities should always be done outside the building."
+          },
+          {
+            "type": "question",
+            "question": "Mont-Saint-Michel is best described as:",
+            "options": [
+              "A royal palace on the Loire River",
+              "A medieval island abbey off the Normandy coast",
+              "A Roman amphitheater in southern France",
+              "A mosque built during the French Revolution"
+            ],
+            "correctIndex": 1,
+            "explanation": "Mont-Saint-Michel is a UNESCO World Heritage Site — a medieval island abbey off the coast of Normandy that has been a place of pilgrimage since the 8th century."
+          }
+        ],
+        "summary": "France's religious and sacred sites are places of deep spiritual and cultural significance that welcome visitors from all backgrounds. By dressing modestly, staying quiet, following photography guidelines, and remaining mindful of active worshipers, you can explore these remarkable places with confidence and respect."
+      }
+    }
+  ]
+}
