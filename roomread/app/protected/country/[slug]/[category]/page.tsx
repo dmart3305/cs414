@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 
 const LESSONS = [
   {
@@ -33,6 +34,15 @@ export default async function CategoryPage({
 
   return (
     <div className="max-w-4xl mx-auto py-10 px-4">
+
+      <Link
+        href={`/protected/country/${slug}`}
+        className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back to country
+      </Link>
+
       <h1 className="text-2xl font-bold mb-6 capitalize">
         {category.replace("-", " ")} Lessons
       </h1>
