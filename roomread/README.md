@@ -2,7 +2,16 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ### Build I delivers a fully functional vertical slice of RoomRead, including authenticated user access, dynamic country and category navigation, and an interactive beginner-level lesson engine powered by structured, data-driven content.
 
 ## Getting Started
-After opening the code in your IDE of choice, start a new terminal and cd into the roomread folder.
+After opening the code in your IDE of choice, start a new terminal and cd into the roomread folder. 
+
+Within the roomread folder create a file named ".env.local". The icon should be a gear. 
+
+<img width="226" height="609" alt="Screenshot 2026-02-27 151320" src="https://github.com/user-attachments/assets/366a9062-7a86-4f06-8836-73a6714806a3" />
+
+Paste this link and text into the file and save all:
+
+NEXT_PUBLIC_SUPABASE_URL=https://vsiqpgutlryxcdgorhyx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzaXFwZ3V0bHJ5eGNkZ29yaHl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NjU3MDksImV4cCI6MjA4NzA0MTcwOX0.PeueoV7HvkifPImG4pHayvB2tDKME-QZJ_zyR7OGfB4
 
 Then, run the development server:
 
