@@ -8,7 +8,8 @@ Within the roomread folder create a file named ".env.local". The icon should be 
 
 <img width="226" height="609" alt="Screenshot 2026-02-27 151320" src="https://github.com/user-attachments/assets/366a9062-7a86-4f06-8836-73a6714806a3" />
 
-Paste this link and text into the file and save all: 
+Paste this link and text into the file and save all:
+
 NEXT_PUBLIC_SUPABASE_URL=https://vsiqpgutlryxcdgorhyx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzaXFwZ3V0bHJ5eGNkZ29yaHl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NjU3MDksImV4cCI6MjA4NzA0MTcwOX0.PeueoV7HvkifPImG4pHayvB2tDKME-QZJ_zyR7OGfB4
 
