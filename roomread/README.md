@@ -1,7 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
-After opening the code in your IDE oof choice, start a new terminal and cd into the roomread folder.
+After opening the code in your IDE of choice, start a new terminal and cd into the roomread folder.
 
 Then, run the development server:
 
