@@ -5,7 +5,6 @@ import { useSearchParams } from "next/navigation";
 import {
   Utensils,
   HandshakeIcon,
-  MessageCircle,
   ShieldCheck,
   Shirt,
   Clock,
@@ -34,13 +33,6 @@ const CATEGORIES: {
     slug: "greetings-gestures",
     description: "How to properly greet locals and avoid offensive gestures",
     icon: HandshakeIcon,
-    count: 1,
-  },
-  {
-    title: "Communication Styles",
-    slug: "communication-styles",
-    description: "Verbal and non-verbal communication norms across cultures",
-    icon: MessageCircle,
     count: 1,
   },
   {

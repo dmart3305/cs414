@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { DashboardHeader } from "@/components/dashboard-header";
-import { QuizRunner } from "@/components/quiz-runner";
+import { LessonRunner } from "@/components/lesson-runner";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -67,7 +67,7 @@ export default async function QuizPage({
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
           </div>
         }>
-          <QuizRunner countrySlug={slug} categorySlug={category} />
+          <LessonRunner countrySlug={slug} categorySlug={category} />
         </Suspense>
       </main>
     </div>

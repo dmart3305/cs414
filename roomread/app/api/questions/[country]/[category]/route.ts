@@ -2,15 +2,37 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
-// Map category slugs to the category names
 const CATEGORY_MAP: Record<string, string> = {
   "dining-etiquette": "Dining Etiquette",
   "greetings-gestures": "Greetings & Gestures",
-  "communication-styles": "Communication Styles",
   "religious-sacred-sites": "Religious & Sacred Sites",
   "dress-codes": "Dress Codes",
   "time-punctuality": "Time & Punctuality",
 };
+
+interface LessonBlock {
+  type: "text" | "question";
+  text?: string;
+  question?: string;
+  options?: string[];
+  correctIndex?: number;
+  explanation?: string;
+}
+
+interface Lesson {
+  title: string;
+  intro: string;
+  content: LessonBlock[];
+  summary?: string;
+}
+
+interface CountryData {
+  country: string;
+  categories: {
+    category: string;
+    lesson: Lesson;
+  }[];
+}
 
 export async function GET(
   _request: Request,
@@ -36,24 +58,18 @@ export async function GET(
   }
 
   const raw = fs.readFileSync(filePath, "utf-8");
-  const allQuestions = JSON.parse(raw) as {
-    country: string;
-    category: string;
-    question: string;
-    options: string[];
-    correctIndex: number;
-    explanation: string;
-  }[];
+  const countryData = JSON.parse(raw) as CountryData;
 
-  const filtered = allQuestions.filter((q) => q.category === categoryName);
+  const categoryData = countryData.categories.find(
+    (c) => c.category === categoryName
+  );
 
-  // Error message
-  if (filtered.length === 0) {
+  if (!categoryData) {
     return NextResponse.json(
-      { error: "No questions found for this category" },
+      { error: "Lesson not found for this category" },
       { status: 404 }
     );
   }
 
-  return NextResponse.json({ questions: filtered });
+  return NextResponse.json({ lesson: categoryData.lesson });
 }
