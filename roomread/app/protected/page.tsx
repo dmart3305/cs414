@@ -103,7 +103,7 @@ export default async function ProtectedPage() {
               <Compass className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-card-foreground">0</p>
+              <p className="text-2xl font-bold text-card-foreground">1</p>
               <p className="text-sm text-muted-foreground">Countries covered</p>
             </div>
           </div>
@@ -112,7 +112,7 @@ export default async function ProtectedPage() {
               <BookOpen className="h-5 w-5 text-accent" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-card-foreground">0</p>
+              <p className="text-2xl font-bold text-card-foreground">1</p>
               <p className="text-sm text-muted-foreground">Cultural guides</p>
             </div>
           </div>
@@ -121,7 +121,7 @@ export default async function ProtectedPage() {
               <HandshakeIcon className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-card-foreground">0</p>
+              <p className="text-2xl font-bold text-card-foreground">5</p>
               <p className="text-sm text-muted-foreground">
                 Etiquette categories
               </p>

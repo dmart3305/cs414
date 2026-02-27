@@ -5,7 +5,6 @@ import path from "path";
 const CATEGORY_MAP: Record<string, string> = {
   "dining-etiquette": "Dining Etiquette",
   "greetings-gestures": "Greetings & Gestures",
-  "communication-styles": "Communication Styles",
   "religious-sacred-sites": "Religious & Sacred Sites",
   "dress-codes": "Dress Codes",
   "time-punctuality": "Time & Punctuality",
