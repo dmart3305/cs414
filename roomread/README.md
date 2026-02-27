@@ -1,4 +1,5 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### Build I delivers a fully functional vertical slice of RoomRead, including authenticated user access, dynamic country and category navigation, and an interactive beginner-level lesson engine powered by structured, data-driven content.
 
 ## Getting Started
 After opening the code in your IDE of choice, start a new terminal and cd into the roomread folder.
