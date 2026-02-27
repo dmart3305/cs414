@@ -3,6 +3,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 After opening the code in your IDE of choice, start a new terminal and cd into the roomread folder. 
+Make sure to run npm install to ensure you have the correct dependencies.
 
 Within the roomread folder create a file named ".env.local". The icon should be a gear. 
 
