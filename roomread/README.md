@@ -14,6 +14,8 @@ pnpm dev
 # or
 bun dev
 ```
+<img width="557" height="278" alt="image" src="https://github.com/user-attachments/assets/2ea88b3c-6d8c-49b2-b500-bfb3c9a8de31" />
+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
