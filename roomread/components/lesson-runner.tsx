@@ -39,9 +39,11 @@ interface Lesson {
 export function LessonRunner({
   countrySlug,
   categorySlug,
+  lessonSlug,
 }: {
   countrySlug: string;
   categorySlug: string;
+  lessonSlug: string;
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -61,7 +63,7 @@ export function LessonRunner({
     async function fetchLesson() {
       try {
         const res = await fetch(
-          `/api/questions/${countrySlug}/${categorySlug}`
+          `/api/questions/${countrySlug}/${categorySlug}/${lessonSlug}`
         );
 
         if (!res.ok) {
@@ -80,7 +82,7 @@ export function LessonRunner({
     }
 
     fetchLesson();
-  }, [countrySlug, categorySlug]);
+  }, [countrySlug, categorySlug, lessonSlug]);
 
   function handleNext() {
     if (!lesson) return;

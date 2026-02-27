@@ -36,7 +36,7 @@ interface CountryData {
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ country: string; category: string }> }
+  { params }: { params: Promise<{ country: string; category: string; lesson: string }> }
 ) {
   const { country, category } = await params;
 
