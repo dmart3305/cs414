@@ -2,7 +2,10 @@
 
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
-import { Globe, LogOut } from "lucide-react";
+import { Globe, LogOut, Star } from "lucide-react";
+import useSWR from "swr";
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function DashboardHeader({
   userEmail,
@@ -12,6 +15,7 @@ export function DashboardHeader({
   displayName: string | null;
 }) {
   const router = useRouter();
+  const { data: stats } = useSWR("/api/user/stats", fetcher);
 
   const handleSignOut = async () => {
     const supabase = createClient();
@@ -30,9 +34,33 @@ export function DashboardHeader({
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="hidden text-sm text-muted-foreground sm:inline">
-            {displayName || userEmail}
-          </span>
+          {/* User info with level */}
+          <div className="hidden sm:flex items-center gap-3">
+            <span className="text-sm text-muted-foreground">
+              {displayName || userEmail}
+            </span>
+            {stats && (
+              <div className="flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1">
+                <Star className="h-3.5 w-3.5 text-primary fill-primary" />
+                <span className="text-xs font-semibold text-primary">
+                  Lv. {stats.level}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile: Just show level badge */}
+          <div className="flex sm:hidden items-center gap-2">
+            {stats && (
+              <div className="flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5">
+                <Star className="h-3 w-3 text-primary fill-primary" />
+                <span className="text-xs font-semibold text-primary">
+                  {stats.level}
+                </span>
+              </div>
+            )}
+          </div>
+
           <button
             onClick={handleSignOut}
             className="flex h-9 items-center gap-2 rounded-lg border border-border px-3 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors"
