@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import useSWR from "swr";
 import {
   Utensils,
   HandshakeIcon,
@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-// Category Info
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const CATEGORIES: {
   title: string;
@@ -61,25 +61,35 @@ const CATEGORIES: {
   },
 ];
 
-export function CountryCategories({ slug }: { slug: string }) {
-  const searchParams = useSearchParams();
+interface ProgressEntry {
+  country_slug: string;
+  category_slug: string;
+  lesson_slug: string;
+  completed_at: string;
+}
 
-  // Build completed set from query params
-  const completedParam = searchParams.get("completed") || "";
-  const completedSet = new Set(
-    completedParam ? completedParam.split(",") : []
+export function CountryCategories({ slug }: { slug: string }) {
+  // Fetch user's progress from the database
+  const { data } = useSWR<{ progress: ProgressEntry[] }>(
+    `/api/progress?country=${slug}`,
+    fetcher
   );
+
+  // Build a set of completed categories (categories where at least one lesson is done)
+  const completedCategories = new Set<string>();
+  if (data?.progress) {
+    data.progress.forEach((entry) => {
+      completedCategories.add(entry.category_slug);
+    });
+  }
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       {CATEGORIES.map((category) => {
-        const isCompleted = completedSet.has(category.slug);
+        const isCompleted = completedCategories.has(category.slug);
         const Icon = category.icon;
 
-        // Preserve completed params when navigating to quiz
-        const quizHref = `/protected/country/${slug}/${category.slug}${
-          completedParam ? `?completed=${completedParam}` : ""
-        }`;
+        const quizHref = `/protected/country/${slug}/${category.slug}`;
 
         return (
           <Link

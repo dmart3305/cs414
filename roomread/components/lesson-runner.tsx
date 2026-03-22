@@ -84,11 +84,28 @@ export function LessonRunner({
     fetchLesson();
   }, [countrySlug, categorySlug, lessonSlug]);
 
+  async function saveProgress() {
+    try {
+      await fetch("/api/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          countrySlug,
+          categorySlug,
+          lessonSlug,
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to save progress:", err);
+    }
+  }
+
   function handleNext() {
     if (!lesson) return;
 
     if (currentIndex + 1 >= lesson.content.length) {
       setCompleted(true);
+      saveProgress();
     } else {
       setCurrentIndex((prev) => prev + 1);
       setSelectedOption(null);
