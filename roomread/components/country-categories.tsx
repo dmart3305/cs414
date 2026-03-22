@@ -5,13 +5,14 @@ import { useSearchParams } from "next/navigation";
 import {
   Utensils,
   HandshakeIcon,
-  MessageCircle,
   ShieldCheck,
   Shirt,
   Clock,
   CheckCircle2,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+
+// Category Info
 
 const CATEGORIES: {
   title: string;
@@ -25,21 +26,14 @@ const CATEGORIES: {
     slug: "dining-etiquette",
     description: "Table manners, tipping customs, and food-related traditions",
     icon: Utensils,
-    count: 45,
+    count: 1,
   },
   {
     title: "Greetings & Gestures",
     slug: "greetings-gestures",
     description: "How to properly greet locals and avoid offensive gestures",
     icon: HandshakeIcon,
-    count: 38,
-  },
-  {
-    title: "Communication Styles",
-    slug: "communication-styles",
-    description: "Verbal and non-verbal communication norms across cultures",
-    icon: MessageCircle,
-    count: 32,
+    count: 1,
   },
   {
     title: "Religious & Sacred Sites",
@@ -47,7 +41,7 @@ const CATEGORIES: {
     description:
       "Respectful practices when visiting temples, churches, and mosques",
     icon: ShieldCheck,
-    count: 28,
+    count: 1,
   },
   {
     title: "Dress Codes",
@@ -55,7 +49,7 @@ const CATEGORIES: {
     description:
       "What to wear and what to avoid in different cultural contexts",
     icon: Shirt,
-    count: 24,
+    count: 1,
   },
   {
     title: "Time & Punctuality",
@@ -63,14 +57,14 @@ const CATEGORIES: {
     description:
       "Expectations around timeliness and scheduling in different regions",
     icon: Clock,
-    count: 20,
+    count: 1,
   },
 ];
 
 export function CountryCategories({ slug }: { slug: string }) {
   const searchParams = useSearchParams();
 
-  // Build completed set from query params like ?completed=dining-etiquette,greetings-gestures
+  // Build completed set from query params
   const completedParam = searchParams.get("completed") || "";
   const completedSet = new Set(
     completedParam ? completedParam.split(",") : []
