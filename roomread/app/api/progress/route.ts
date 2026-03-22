@@ -56,6 +56,18 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  // Check if this lesson was already completed (to avoid granting XP twice)
+  const { data: existingProgress } = await supabase
+    .from("lesson_progress")
+    .select("id")
+    .eq("user_id", user.id)
+    .eq("country_slug", countrySlug)
+    .eq("category_slug", categorySlug)
+    .eq("lesson_slug", lessonSlug)
+    .single();
+
+  const isNewCompletion = !existingProgress;
+
   const { data, error } = await supabase
     .from("lesson_progress")
     .upsert(
@@ -75,6 +87,15 @@ export async function POST(request: NextRequest) {
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  // Grant XP for new completions only
+  // Beginner = 50 XP, Intermediate = 100 XP, Advanced = 150 XP
+  if (isNewCompletion) {
+    const xpReward =
+      lessonSlug === "beginner" ? 50 : lessonSlug === "intermediate" ? 100 : 150;
+
+    await supabase.rpc("increment_xp", { user_id: user.id, amount: xpReward });
   }
 
   return NextResponse.json({ success: true, progress: data });
