@@ -1,5 +1,7 @@
 "use client";
 
+import { BackgroundPattern } from "./background-pattern";
+import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { CheckCircle2, XCircle, ArrowRight, Trophy } from "lucide-react";
@@ -57,6 +59,18 @@ export function LessonRunner({
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [completed, setCompleted] = useState(false);
+
+  //sounds
+  const correctSound = useRef<HTMLAudioElement | null>(null);
+  const incorrectSound = useRef<HTMLAudioElement | null>(null);
+
+  if (!correctSound.current) {
+    correctSound.current = new Audio("/sound effects/correct.mp3");
+  }
+
+  if (!incorrectSound.current) {
+    incorrectSound.current = new Audio("/sound effects/incorrect.mp3");
+  }
 
   //fetch lesson
   useEffect(() => {
@@ -126,8 +140,18 @@ export function LessonRunner({
     const correct = optionIndex === block.correctIndex;
     setIsCorrect(correct);
 
+    //plays with sounds
     if (correct) {
+      if (correctSound.current) {
+        correctSound.current.currentTime = 0;
+        correctSound.current.play();
+      }
       setShowExplanation(true);
+    } else {
+      if (incorrectSound.current) {
+        incorrectSound.current.currentTime = 0;
+        incorrectSound.current.play();
+      }
     }
   }
 
@@ -195,6 +219,9 @@ export function LessonRunner({
 
   return (
     <div>
+
+      <BackgroundPattern country={countrySlug} />
+
       {/* Progress Bar */}
       <div className="mb-6">
         <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
@@ -220,7 +247,7 @@ export function LessonRunner({
 
       {/* ================= TEXT BLOCK ================= */}
       {block.type === "text" && (
-        <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+        <div className="relative z-10 rounded-xl border border-border bg-card p-6 md:p-8">
           {block.image && (
             <img
               src={block.image.src}
