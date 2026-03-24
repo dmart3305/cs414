@@ -17,6 +17,7 @@ const FEATURED_COUNTRIES = [
     description:
       "Placeholder",
     flag: '\uD83C\uDDEB\uD83C\uDDF7',
+    image: "/Francephotos/france2.jpg",
   },
   {
     name: "Placeholder",
@@ -140,8 +141,8 @@ export default async function ProtectedPage() {
             </button>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURED_COUNTRIES.map((country) => (
-              <CountryCard key={country.name} {...country} />
+            {FEATURED_COUNTRIES.map((country, index) => (
+              <CountryCard key={index} {...country} />
             ))}
           </div>
         </section>

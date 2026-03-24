@@ -1,5 +1,6 @@
 "use client";
 
+import { BackgroundPattern } from "@/components/background-pattern";
 import Link from "next/link";
 import useSWR from "swr";
 import {
@@ -69,13 +70,11 @@ interface ProgressEntry {
 }
 
 export function CountryCategories({ slug }: { slug: string }) {
-  // Fetch user's progress from the database
   const { data } = useSWR<{ progress: ProgressEntry[] }>(
     `/api/progress?country=${slug}`,
     fetcher
   );
 
-  // Build a set of completed categories (categories where at least one lesson is done)
   const completedCategories = new Set<string>();
   if (data?.progress) {
     data.progress.forEach((entry) => {
@@ -84,59 +83,68 @@ export function CountryCategories({ slug }: { slug: string }) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-      {CATEGORIES.map((category) => {
-        const isCompleted = completedCategories.has(category.slug);
-        const Icon = category.icon;
+    <div className="relative min-h-[600px]">
+      {/* Background Pattern */}
+      <BackgroundPattern country={slug} />
 
-        const quizHref = `/protected/country/${slug}/${category.slug}`;
+      {/* Content */}
+      <div className="relative z-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+        {CATEGORIES.map((category) => {
+          const isCompleted = completedCategories.has(category.slug);
+          const Icon = category.icon;
 
-        return (
-          <Link
-            key={category.title}
-            href={quizHref}
-            className={`group flex items-start gap-4 rounded-xl border p-5 transition-all ${
-              isCompleted
-                ? "border-primary/40 bg-primary/5"
-                : "border-border bg-card hover:border-primary/30 hover:shadow-sm"
-            }`}
-          >
-            <div
-              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors ${
+          const quizHref = `/protected/country/${slug}/${category.slug}`;
+
+          return (
+            <Link
+              key={category.title}
+              href={quizHref}
+              className={`group flex items-start gap-4 rounded-xl border p-5 transition-all duration-300 transform hover:scale-[1.03] hover:-translate-y-1 hover:shadow-lg ${
                 isCompleted
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground"
+                  ? "border-primary/40 bg-primary/5"
+                  : "border-border bg-card hover:border-primary/30"
               }`}
             >
-              <Icon className="h-5 w-5" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <h3 className="font-semibold text-card-foreground">
-                    {category.title}
-                  </h3>
-                  {isCompleted && (
-                    <CheckCircle2 className="h-4 w-4 text-primary" />
+              <div
+                className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors ${
+                  isCompleted
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground"
+                }`}
+              >
+                <Icon className="h-5 w-5" />
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <h3 className="font-semibold text-card-foreground">
+                      {category.title}
+                    </h3>
+                    {isCompleted && (
+                      <CheckCircle2 className="h-4 w-4 text-primary" />
+                    )}
+                  </div>
+
+                  {isCompleted ? (
+                    <span className="shrink-0 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
+                      Completed
+                    </span>
+                  ) : (
+                    <span className="shrink-0 rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground">
+                      {category.count} guides
+                    </span>
                   )}
                 </div>
-                {isCompleted ? (
-                  <span className="shrink-0 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">
-                    Completed
-                  </span>
-                ) : (
-                  <span className="shrink-0 rounded-full bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground">
-                    {category.count} guides
-                  </span>
-                )}
+
+                <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+                  {category.description}
+                </p>
               </div>
-              <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-                {category.description}
-              </p>
-            </div>
-          </Link>
-        );
-      })}
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }
