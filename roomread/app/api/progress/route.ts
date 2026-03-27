@@ -1,6 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
+// XP required per level (cumulative)
+function calculateLevel(xp: number): number {
+  const xpPerLevel = [0, 100, 250, 450, 700, 1000, 1350, 1750, 2200, 2700, 3250];
+  let level = 0;
+  for (let i = 1; i < xpPerLevel.length; i++) {
+    if (xp >= xpPerLevel[i]) {
+      level = i;
+    } else {
+      break;
+    }
+  }
+  return level;
+}
+
 // GET - Fetch user's lesson progress
 export async function GET(request: NextRequest) {
   const supabase = await createClient();
@@ -91,12 +105,36 @@ export async function POST(request: NextRequest) {
 
   // Grant XP for new completions only
   // Beginner = 50 XP, Intermediate = 100 XP, Advanced = 150 XP
+  let leveledUp = false;
+  let newLevel = 0;
+  let xpEarned = 0;
+
   if (isNewCompletion) {
-    const xpReward =
+    // Get current XP before incrementing
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("xp")
+      .eq("id", user.id)
+      .single();
+
+    const oldXp = profile?.xp || 0;
+    const oldLevel = calculateLevel(oldXp);
+
+    xpEarned =
       lessonSlug === "beginner" ? 50 : lessonSlug === "intermediate" ? 100 : 150;
 
-    await supabase.rpc("increment_xp", { user_id: user.id, amount: xpReward });
+    await supabase.rpc("increment_xp", { user_id: user.id, amount: xpEarned });
+
+    const newXp = oldXp + xpEarned;
+    newLevel = calculateLevel(newXp);
+    leveledUp = newLevel > oldLevel;
   }
 
-  return NextResponse.json({ success: true, progress: data });
+  return NextResponse.json({
+    success: true,
+    progress: data,
+    xpEarned,
+    leveledUp,
+    newLevel,
+  });
 }

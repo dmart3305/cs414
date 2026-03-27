@@ -4,7 +4,7 @@ import { BackgroundPattern } from "./background-pattern";
 import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { CheckCircle2, XCircle, ArrowRight, Trophy } from "lucide-react";
+import { CheckCircle2, XCircle, ArrowRight, Trophy, Star, X } from "lucide-react";
 
 /* =========================
    Types
@@ -59,6 +59,8 @@ export function LessonRunner({
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
   const [completed, setCompleted] = useState(false);
+  const [showLevelUp, setShowLevelUp] = useState(false);
+  const [newLevel, setNewLevel] = useState(0);
 
   //sounds
   const correctSound = useRef<HTMLAudioElement | null>(null);
@@ -100,7 +102,7 @@ export function LessonRunner({
 
   async function saveProgress() {
     try {
-      await fetch("/api/progress", {
+      const res = await fetch("/api/progress", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -109,6 +111,13 @@ export function LessonRunner({
           lessonSlug,
         }),
       });
+      
+      const data = await res.json();
+      
+      if (data.leveledUp) {
+        setNewLevel(data.newLevel);
+        setShowLevelUp(true);
+      }
     } catch (err) {
       console.error("Failed to save progress:", err);
     }
@@ -219,6 +228,60 @@ export function LessonRunner({
 
   return (
     <div>
+      {/* Level Up Popup */}
+      {showLevelUp && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+          <div className="relative mx-4 w-full max-w-sm animate-in zoom-in-95 fade-in duration-300">
+            <div className="rounded-2xl border border-primary/30 bg-card p-8 text-center shadow-2xl">
+              {/* Close button */}
+              <button
+                onClick={() => setShowLevelUp(false)}
+                className="absolute right-4 top-4 rounded-full p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              {/* Animated stars background */}
+              <div className="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+                <div className="absolute -top-4 left-1/4 text-accent animate-pulse">
+                  <Star className="h-6 w-6 fill-current" />
+                </div>
+                <div className="absolute top-8 -right-2 text-accent animate-pulse delay-100">
+                  <Star className="h-4 w-4 fill-current" />
+                </div>
+                <div className="absolute bottom-12 left-4 text-accent animate-pulse delay-200">
+                  <Star className="h-5 w-5 fill-current" />
+                </div>
+              </div>
+
+              {/* Level badge */}
+              <div className="relative mx-auto mb-6 flex h-24 w-24 items-center justify-center">
+                <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
+                <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 shadow-lg">
+                  <span className="text-3xl font-bold text-primary-foreground">
+                    {newLevel}
+                  </span>
+                </div>
+              </div>
+
+              <h2 className="text-2xl font-bold text-foreground mb-2">
+                Level Up!
+              </h2>
+              <p className="text-muted-foreground mb-6">
+                Congratulations! You&apos;ve reached Level {newLevel}
+              </p>
+
+              <button
+                onClick={() => setShowLevelUp(false)}
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+              >
+                Continue
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <BackgroundPattern country={countrySlug} />
 
