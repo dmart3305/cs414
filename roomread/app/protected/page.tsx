@@ -9,51 +9,52 @@ import {
   HandshakeIcon,
 } from "lucide-react";
 
+// Country info
 const FEATURED_COUNTRIES = [
   {
-    name: "Japan",
-    region: "East Asia",
+    name: "France",
+    region: "Europe",
     description:
-      "Master the art of bowing, chopstick etiquette, and the importance of removing shoes before entering homes.",
-    flag: "\u{1F1EF}\u{1F1F5}",
+      "Placeholder",
+    flag: '\uD83C\uDDEB\uD83C\uDDF7',
+    image: "/Francephotos/france2.jpg",
   },
   {
-    name: "Morocco",
-    region: "North Africa",
+    name: "Placeholder",
+    region: "Placeholder",
     description:
-      "Learn about mint tea hospitality, haggling in souks, and respectful dress codes for visiting mosques.",
-    flag: "\u{1F1F2}\u{1F1E6}",
+      "Placeholder",
+    flag: "",
   },
   {
-    name: "Brazil",
-    region: "South America",
+    name: "Placeholder",
+    region: "Placeholder",
     description:
-      "Understand personal space norms, greeting customs, and the cultural significance of meal times.",
-    flag: "\u{1F1E7}\u{1F1F7}",
+      "Placeholder",
+    flag: "",
   },
   {
-    name: "India",
-    region: "South Asia",
+    name: "Placeholder",
+    region: "Placeholder",
     description:
-      "Navigate namaste greetings, dining with your right hand, and respectful temple visit practices.",
-    flag: "\u{1F1EE}\u{1F1F3}",
+      "Placeholder",
+    flag: "",
   },
   {
-    name: "Germany",
-    region: "Central Europe",
+    name: "Placeholder",
+    region: "Placeholder",
     description:
-      "Discover punctuality expectations, formal address customs, and the importance of recycling etiquette.",
-    flag: "\u{1F1E9}\u{1F1EA}",
+      "Placeholder",
+    flag: "",
   },
   {
-    name: "Thailand",
-    region: "Southeast Asia",
+    name: "Placeholder",
+    region: "Placeholder",
     description:
-      "Learn about the wai greeting, respect for the monarchy, and the significance of the head and feet.",
-    flag: "\u{1F1F9}\u{1F1ED}",
+      "Placeholder",
+    flag: "",
   },
 ];
-
 
 
 export default async function ProtectedPage() {
@@ -103,7 +104,7 @@ export default async function ProtectedPage() {
               <Compass className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-card-foreground">195</p>
+              <p className="text-2xl font-bold text-card-foreground">1</p>
               <p className="text-sm text-muted-foreground">Countries covered</p>
             </div>
           </div>
@@ -112,7 +113,7 @@ export default async function ProtectedPage() {
               <BookOpen className="h-5 w-5 text-accent" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-card-foreground">1,200+</p>
+              <p className="text-2xl font-bold text-card-foreground">1</p>
               <p className="text-sm text-muted-foreground">Cultural guides</p>
             </div>
           </div>
@@ -121,7 +122,7 @@ export default async function ProtectedPage() {
               <HandshakeIcon className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <p className="text-2xl font-bold text-card-foreground">6</p>
+              <p className="text-2xl font-bold text-card-foreground">5</p>
               <p className="text-sm text-muted-foreground">
                 Etiquette categories
               </p>
@@ -140,8 +141,8 @@ export default async function ProtectedPage() {
             </button>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {FEATURED_COUNTRIES.map((country) => (
-              <CountryCard key={country.name} {...country} />
+            {FEATURED_COUNTRIES.map((country, index) => (
+              <CountryCard key={index} {...country} />
             ))}
           </div>
         </section>

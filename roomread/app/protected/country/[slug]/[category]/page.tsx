@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Flame, Zap, Trophy } from "lucide-react";
+import { BackgroundPattern } from "@/components/background-pattern";
 import { createClient } from "@/lib/supabase/server";
 
 const LESSONS = [
@@ -33,7 +34,7 @@ export default async function CategoryPage({
 
   if (!slug || !category) return notFound();
 
-  // Fetch completed lessons for this category from database
+  // Fetch completed lessons
   const supabase = await createClient();
   const {
     data: { user },
@@ -55,7 +56,11 @@ export default async function CategoryPage({
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-10 px-4">
+    <div className="max-w-4xl mx-auto py-10 px-4 bg-gradient-to-b from-background to-muted/30 rounded-xl">
+
+      <BackgroundPattern country={slug} />
+
+      {/* Back Button */}
       <Link
         href={`/protected/country/${slug}`}
         className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
@@ -64,44 +69,113 @@ export default async function CategoryPage({
         Back to country
       </Link>
 
-      <h1 className="text-2xl font-bold mb-6 capitalize">
+      {/* Title */}
+      <h1 className="text-2xl font-bold mb-2 capitalize">
         {category.replace(/-/g, " ")} Lessons
       </h1>
 
-      <div className="grid gap-4">
+      {/* Progress Hint */}
+      <p className="text-sm text-muted-foreground mb-6">
+        Complete beginner lessons to unlock intermediate content.
+      </p>
+
+      {/* Lesson Cards */}
+      <div className=" relative z-10 grid gap-4">
         {LESSONS.map((lesson) => {
           const href = `/protected/country/${slug}/${category}/${lesson.slug}`;
           const isCompleted = completedLessons.includes(lesson.slug);
 
-          return lesson.locked ? (
-            <div
-              key={lesson.slug}
-              className="rounded-xl border p-5 bg-muted opacity-60 cursor-not-allowed"
-            >
-              <h3 className="font-semibold">{lesson.title}</h3>
-              <p className="text-sm text-muted-foreground">Coming soon</p>
-            </div>
-          ) : (
+          // Difficulty badge styles
+          const badgeStyle =
+            lesson.slug === "beginner"
+              ? "bg-green-500/10 text-green-600"
+              : lesson.slug === "intermediate"
+              ? "bg-yellow-500/10 text-yellow-600"
+              : "bg-red-500/10 text-red-600";
+
+          // Icons
+          const icon =
+            lesson.slug === "beginner" ? (
+              <Flame className="h-4 w-4 text-green-500" />
+            ) : lesson.slug === "intermediate" ? (
+              <Zap className="h-4 w-4 text-yellow-500" />
+            ) : (
+              <Trophy className="h-4 w-4 text-red-500" />
+            );
+
+          // LOCKED CARD
+          if (lesson.locked) {
+            return (
+              <div
+                key={lesson.slug}
+                className="relative rounded-xl border p-5 bg-muted/50 opacity-70"
+              >
+                <div className="absolute inset-0 flex items-center justify-center z-10">
+                  <span className="text-xs bg-background px-3 py-1 rounded-full border shadow-sm">
+                    Locked
+                  </span>
+                </div>
+
+                <div className="blur-[1px]">
+                  <span
+                    className={`inline-block mb-2 text-xs font-semibold px-2 py-1 rounded-full ${badgeStyle}`}
+                  >
+                    {lesson.slug.toUpperCase()}
+                  </span>
+
+                  <div className="flex items-center gap-2">
+                    {icon}
+                    <h3 className="font-semibold">{lesson.title}</h3>
+                  </div>
+
+                  <p className="text-sm text-muted-foreground">
+                    Complete previous lessons to unlock
+                  </p>
+                </div>
+              </div>
+            );
+          }
+
+          // UNLOCKED CARD
+          return (
             <Link
               key={lesson.slug}
               href={href}
-              className={`rounded-xl border p-5 bg-card hover:shadow-sm transition relative ${
-                isCompleted ? "border-primary/30" : ""
+              className={`group relative rounded-xl border p-5 bg-card transition-all duration-300 transform hover:scale-[1.04] hover:-translate-y-1 hover:shadow-xl hover:border-primary/30 ${
+                isCompleted ? "border-primary/40 bg-primary/5" : ""
               }`}
             >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="font-semibold">{lesson.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {lesson.description}
-                  </p>
-                </div>
-                {isCompleted && (
-                  <div className="flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary shrink-0">
-                    <CheckCircle2 className="h-3.5 w-3.5" />
-                    Completed
+              <div className="transition-transform group-hover:translate-x-1">
+                {/* Badge */}
+                <span
+                  className={`inline-block mb-2 text-xs font-semibold px-2 py-1 rounded-full ${badgeStyle}`}
+                >
+                  {lesson.slug.toUpperCase()}
+                </span>
+
+                {/* Title + Icon */}
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      {icon}
+                      <h3 className="font-semibold text-card-foreground group-hover:text-primary transition-colors">
+                        {lesson.title}
+                      </h3>
+                    </div>
+
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {lesson.description}
+                    </p>
                   </div>
-                )}
+
+                  {/* Completed Badge */}
+                  {isCompleted && (
+                    <div className="flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary shrink-0">
+                      <CheckCircle2 className="h-3.5 w-3.5" />
+                      Completed
+                    </div>
+                  )}
+                </div>
               </div>
             </Link>
           );

@@ -3,61 +3,35 @@ import { redirect, notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { CountryCategories } from "@/components/country-categories";
+import { ImageSlideshow } from "@/components/image-slideshow";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
+// Country Description
 const COUNTRIES: Record<
   string,
-  { name: string; region: string; flag: string; description: string }
+  {
+    name: string;
+    region: string;
+    flag: string;
+    description: string;
+    images: string[];
+  }
 > = {
   france: {
     name: "France",
     region: "Europe",
-    flag: "\u{1F1EB}\u{1F1F7}",
+    flag: "\uD83C\uDDEB\uD83C\uDDF7",
     description:
-      "Discover the art of French dining etiquette, the importance of greetings with a bisou, and navigating formal vs. informal address.",
-  },
-  japan: {
-    name: "Japan",
-    region: "East Asia",
-    flag: "\u{1F1EF}\u{1F1F5}",
-    description:
-      "Master the art of bowing, chopstick etiquette, and the importance of removing shoes before entering homes.",
-  },
-  morocco: {
-    name: "Morocco",
-    region: "North Africa",
-    flag: "\u{1F1F2}\u{1F1E6}",
-    description:
-      "Learn about mint tea hospitality, haggling in souks, and respectful dress codes for visiting mosques.",
-  },
-  brazil: {
-    name: "Brazil",
-    region: "South America",
-    flag: "\u{1F1E7}\u{1F1F7}",
-    description:
-      "Understand personal space norms, greeting customs, and the cultural significance of meal times.",
-  },
-  india: {
-    name: "India",
-    region: "South Asia",
-    flag: "\u{1F1EE}\u{1F1F3}",
-    description:
-      "Navigate namaste greetings, dining with your right hand, and respectful temple visit practices.",
-  },
-  germany: {
-    name: "Germany",
-    region: "Central Europe",
-    flag: "\u{1F1E9}\u{1F1EA}",
-    description:
-      "Discover punctuality expectations, formal address customs, and the importance of recycling etiquette.",
-  },
-  thailand: {
-    name: "Thailand",
-    region: "Southeast Asia",
-    flag: "\u{1F1F9}\u{1F1ED}",
-    description:
-      "Learn about the wai greeting, respect for the monarchy, and the significance of the head and feet.",
+      "Discover France, the world's top tourist destination, renowned for its rich history, iconic art, fashion, and cuisine.",
+    images: [
+      "/Francephotos/france7.jpg",
+      "/Francephotos/france8.jpg",
+      "/Francephotos/france3.jpg",
+      "/Francephotos/france4.jpg",
+      "/Francephotos/france9.webp",
+      "/Francephotos/france6.jpg",
+    ],
   },
 };
 
@@ -90,6 +64,8 @@ export default async function CountryPage({
       />
 
       <main className="mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">
+        
+        {/* Back button */}
         <Link
           href="/protected"
           className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
@@ -98,6 +74,10 @@ export default async function CountryPage({
           Back to all countries
         </Link>
 
+        {/* SLIDESHOW */}
+        <ImageSlideshow images={country.images} />
+
+        {/* Country Info */}
         <section className="mb-10">
           <div className="flex items-start gap-4">
             <span
@@ -121,11 +101,19 @@ export default async function CountryPage({
           </div>
         </section>
 
+        {/* Categories */}
         <section>
           <h2 className="text-xl font-bold text-foreground tracking-tight mb-5">
             {"Explore etiquette in " + country.name}
           </h2>
-          <Suspense fallback={<div className="text-muted-foreground">Loading categories...</div>}>
+
+          <Suspense
+            fallback={
+              <div className="text-muted-foreground">
+                Loading categories...
+              </div>
+            }
+          >
             <CountryCategories slug={slug} />
           </Suspense>
         </section>
