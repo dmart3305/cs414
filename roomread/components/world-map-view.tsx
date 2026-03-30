@@ -6,10 +6,11 @@ import {
   Geographies,
   Geography,
   ZoomableGroup,
-} from "react-simple-maps";
+  createCoordinates,
+} from "@vnedyalk0v/react19-simple-maps";
 import useSWR from "swr";
 
-const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+const geoUrl = "https://unpkg.com/world-atlas@2/countries-110m.json";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -140,11 +141,13 @@ export function WorldMapView() {
         projection="geoMercator"
         projectionConfig={{
           scale: 120,
-          center: [0, 30],
+          center: createCoordinates(0, 30),
         }}
+        width={800}
+        height={500}
         className="w-full h-[400px] md:h-[500px]"
       >
-        <ZoomableGroup center={[0, 30]} zoom={1}>
+        <ZoomableGroup center={createCoordinates(0, 30)} zoom={1}>
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map((geo) => {
