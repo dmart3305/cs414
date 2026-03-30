@@ -2,11 +2,13 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { CountryCard } from "@/components/country-card";
+import Link from "next/link";
 import {
   Search,
   Compass,
   BookOpen,
   HandshakeIcon,
+  Globe,
 } from "lucide-react";
 
 // Country info
@@ -95,6 +97,26 @@ export default async function ProtectedPage() {
               className="flex h-12 w-full rounded-xl border border-input bg-card pl-11 pr-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 transition-colors"
             />
           </div>
+        </section>
+
+        {/* World Map Link */}
+        <section className="mb-10">
+          <Link
+            href="/protected/world-map"
+            className="group flex items-center gap-4 rounded-xl border border-border bg-card p-5 hover:border-primary/30 hover:shadow-sm transition-all"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+              <Globe className="h-6 w-6 text-primary" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-semibold text-card-foreground group-hover:text-primary transition-colors">
+                View World Progress
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                See your cultural learning journey on an interactive world map
+              </p>
+            </div>
+          </Link>
         </section>
 
         {/* Quick stats */}
