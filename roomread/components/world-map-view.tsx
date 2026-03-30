@@ -95,18 +95,11 @@ export function WorldMapView() {
     <div className="relative">
       {/* World Map Container */}
       <div className="relative w-full aspect-[1516/768] rounded-xl overflow-hidden border border-border bg-[#a8c8dc]">
-        {/* Map Image - tries multiple paths for compatibility */}
+        {/* Map Image - uses the public folder path */}
         <img
-          src="/worldmap/worldmap.png"
+          src="/images/worldmap.png"
           alt="World Map"
           className="absolute inset-0 w-full h-full object-cover"
-          onError={(e) => {
-            // Fallback to alternate path if primary fails
-            const img = e.currentTarget;
-            if (img.src.includes("/worldmap/")) {
-              img.src = "/images/worldmap.png";
-            }
-          }}
         />
 
         {/* Country Markers */}
