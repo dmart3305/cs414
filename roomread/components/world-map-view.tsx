@@ -98,7 +98,7 @@ export function WorldMapView() {
       <div className="relative w-full aspect-[1516/768] rounded-xl overflow-hidden border border-border">
         {/* Map Image */}
         <Image
-          src="/images/worldmap.png"
+          src="/worldmap/worldmap.png"
           alt="World Map"
           fill
           className="object-cover"
