@@ -21,7 +21,7 @@ const COUNTRIES: Record<
   france: {
     name: "France",
     region: "Europe",
-    flag: "🇫🇷",
+    flag: '/Francephotos/Flag_of_France.jpg',
     description:
       "Discover France, the world's top tourist destination, renowned for its rich history, iconic art, fashion, and cuisine.",
     images: [
@@ -80,13 +80,22 @@ export default async function CountryPage({
         {/* Country Info */}
         <section className="mb-10">
           <div className="flex items-start gap-4">
-            <span
-              className="text-5xl md:text-6xl"
-              role="img"
-              aria-label={`${country.name} flag`}
-            >
-              {country.flag}
-            </span>
+            {/* Flag - supports both emoji strings and image URLs */}
+            {country.flag.startsWith("/") || country.flag.startsWith("http") ? (
+              <img
+                src={country.flag}
+                alt={`${country.name} flag`}
+                className="h-12 w-18 md:h-14 md:w-20 rounded object-cover shadow-sm"
+              />
+            ) : (
+              <span
+                className="text-5xl md:text-6xl"
+                role="img"
+                aria-label={`${country.name} flag`}
+              >
+                {country.flag}
+              </span>
+            )}
             <div>
               <h1 className="text-3xl font-bold text-foreground tracking-tight md:text-4xl text-balance">
                 {country.name}

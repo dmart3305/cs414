@@ -7,7 +7,7 @@ interface CountryCardProps {
   name: string;
   region: string;
   description: string;
-  flag: string;
+  flag: string; // Can be an emoji or an image URL/path
   image?: string;
 }
 
@@ -48,9 +48,18 @@ export function CountryCard({
       {/* ================= CONTENT ================= */}
       <div className="relative p-5 flex flex-col flex-1">
         <div className="flex items-start gap-4">
-          <span className="text-4xl" role="img" aria-label={`${name} flag`}>
-            {flag}
-          </span>
+          {/* Flag - supports both emoji strings and image URLs */}
+          {flag.startsWith("/") || flag.startsWith("http") ? (
+            <img
+              src={flag}
+              alt={`${name} flag`}
+              className="h-10 w-14 rounded object-cover shadow-sm"
+            />
+          ) : (
+            <span className="text-4xl" role="img" aria-label={`${name} flag`}>
+              {flag}
+            </span>
+          )}
 
           <div className="flex-1 min-w-0">
             <h3 className="font-semibold text-card-foreground group-hover:text-primary transition-colors">

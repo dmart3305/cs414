@@ -16,7 +16,7 @@ const FEATURED_COUNTRIES = [
     region: "Europe",
     description:
       " ",
-    flag: '\uD83C\uDDEB\uD83C\uDDF7',
+    flag: '/Francephotos/Flag_of_France.jpg',
     image: "/Francephotos/france2.jpg",
   },
   {
