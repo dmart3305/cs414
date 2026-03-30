@@ -3,7 +3,6 @@
 import { useState } from "react";
 import useSWR from "swr";
 import Link from "next/link";
-import Image from "next/image";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -95,14 +94,19 @@ export function WorldMapView() {
   return (
     <div className="relative">
       {/* World Map Container */}
-      <div className="relative w-full aspect-[1516/768] rounded-xl overflow-hidden border border-border">
-        {/* Map Image */}
-        <Image
+      <div className="relative w-full aspect-[1516/768] rounded-xl overflow-hidden border border-border bg-[#a8c8dc]">
+        {/* Map Image - tries multiple paths for compatibility */}
+        <img
           src="/worldmap/worldmap.png"
           alt="World Map"
-          fill
-          className="object-cover"
-          priority
+          className="absolute inset-0 w-full h-full object-cover"
+          onError={(e) => {
+            // Fallback to alternate path if primary fails
+            const img = e.currentTarget;
+            if (img.src.includes("/worldmap/")) {
+              img.src = "/images/worldmap.png";
+            }
+          }}
         />
 
         {/* Country Markers */}
