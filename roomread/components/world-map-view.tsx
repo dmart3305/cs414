@@ -1,69 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import {
-  ComposableMap,
-  Geographies,
-  Geography,
-  ZoomableGroup,
-} from "react-simple-maps";
+import { useState, useEffect } from "react";
 import useSWR from "swr";
-
-const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+import Link from "next/link";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-// Map country slugs to ISO country names used in the geo data
-const COUNTRY_NAME_MAP: Record<string, string[]> = {
-  france: ["France"],
-  japan: ["Japan"],
-  morocco: ["Morocco"],
-  brazil: ["Brazil"],
-  india: ["India"],
-  germany: ["Germany"],
-  thailand: ["Thailand"],
-  italy: ["Italy"],
-  spain: ["Spain"],
-  mexico: ["Mexico"],
-  china: ["China"],
-  "united-states": ["United States of America", "United States"],
-  "united-kingdom": ["United Kingdom"],
-  australia: ["Australia"],
-  canada: ["Canada"],
-  argentina: ["Argentina"],
-  egypt: ["Egypt"],
-  "south-korea": ["South Korea", "Korea, South"],
-  vietnam: ["Vietnam", "Viet Nam"],
-  indonesia: ["Indonesia"],
-  turkey: ["Turkey", "Türkiye"],
-  greece: ["Greece"],
-  portugal: ["Portugal"],
-  netherlands: ["Netherlands"],
-  sweden: ["Sweden"],
-  norway: ["Norway"],
-  denmark: ["Denmark"],
-  finland: ["Finland"],
-  switzerland: ["Switzerland"],
-  austria: ["Austria"],
-  belgium: ["Belgium"],
-  ireland: ["Ireland"],
-  "new-zealand": ["New Zealand"],
-  singapore: ["Singapore"],
-  "south-africa": ["South Africa"],
-  kenya: ["Kenya"],
-  nigeria: ["Nigeria"],
-  peru: ["Peru"],
-  colombia: ["Colombia"],
-  chile: ["Chile"],
-};
-
-// Reverse lookup: geo name -> slug
-const GEO_TO_SLUG: Record<string, string> = {};
-Object.entries(COUNTRY_NAME_MAP).forEach(([slug, names]) => {
-  names.forEach((name) => {
-    GEO_TO_SLUG[name] = slug;
-  });
-});
+// Countries that have lessons available with their approximate positions on a simplified world view
+const AVAILABLE_COUNTRIES = [
+  { slug: "france", name: "France", x: 48, y: 32 },
+  { slug: "japan", name: "Japan", x: 82, y: 38 },
+  { slug: "morocco", name: "Morocco", x: 45, y: 42 },
+  { slug: "brazil", name: "Brazil", x: 32, y: 62 },
+  { slug: "india", name: "India", x: 70, y: 45 },
+  { slug: "germany", name: "Germany", x: 50, y: 30 },
+  { slug: "thailand", name: "Thailand", x: 75, y: 50 },
+];
 
 interface ProgressItem {
   country_slug: string;
@@ -92,29 +44,53 @@ function getCountryHighestLevel(
   return "none";
 }
 
-function getLevelColor(level: "none" | "beginner" | "intermediate" | "advanced"): string {
+function getLevelStyles(level: "none" | "beginner" | "intermediate" | "advanced") {
   switch (level) {
     case "advanced":
-      return "#FFD700"; // Gold
+      return {
+        fill: "#FFD700",
+        stroke: "#B8860B",
+        label: "Gold",
+        glow: "drop-shadow(0 0 8px rgba(255, 215, 0, 0.6))",
+      };
     case "intermediate":
-      return "#C0C0C0"; // Silver
+      return {
+        fill: "#C0C0C0",
+        stroke: "#808080",
+        label: "Silver",
+        glow: "drop-shadow(0 0 8px rgba(192, 192, 192, 0.6))",
+      };
     case "beginner":
-      return "#CD7F32"; // Bronze
+      return {
+        fill: "#CD7F32",
+        stroke: "#8B4513",
+        label: "Bronze",
+        glow: "drop-shadow(0 0 8px rgba(205, 127, 50, 0.6))",
+      };
     default:
-      return "#2A2A2E"; // Dark gray for not started
+      return {
+        fill: "#3A3A3E",
+        stroke: "#2A2A2E",
+        label: "Not Started",
+        glow: "none",
+      };
   }
 }
 
 export function WorldMapView() {
   const { data, isLoading } = useSWR("/api/progress", fetcher);
-  const [tooltipContent, setTooltipContent] = useState<string | null>(null);
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   const progress: ProgressItem[] = data?.progress || [];
 
+  useEffect(() => {
+    setMapLoaded(true);
+  }, []);
+
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-[400px] md:h-[500px]">
+      <div className="flex items-center justify-center h-[500px]">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
       </div>
     );
@@ -122,87 +98,189 @@ export function WorldMapView() {
 
   return (
     <div className="relative">
-      {/* Tooltip */}
-      {tooltipContent && (
-        <div
-          className="absolute z-10 pointer-events-none px-3 py-2 text-sm rounded-lg bg-card border border-border shadow-lg"
-          style={{
-            left: tooltipPosition.x,
-            top: tooltipPosition.y,
-            transform: "translate(-50%, -120%)",
-          }}
-        >
-          {tooltipContent}
-        </div>
-      )}
-
-      <ComposableMap
-        projection="geoMercator"
-        projectionConfig={{
-          scale: 120,
-          center: [0, 30],
-        }}
-        className="w-full h-[400px] md:h-[500px]"
+      {/* SVG World Map */}
+      <svg
+        viewBox="0 0 100 70"
+        className="w-full h-[400px] md:h-[500px] bg-[#1a1a2e] rounded-xl"
+        style={{ filter: mapLoaded ? "none" : "blur(4px)" }}
       >
-        <ZoomableGroup center={[0, 30]} zoom={1}>
-          <Geographies geography={geoUrl}>
-            {({ geographies }) =>
-              geographies.map((geo) => {
-                const geoName = geo.properties.name;
-                const countrySlug = GEO_TO_SLUG[geoName];
-                const level = countrySlug
-                  ? getCountryHighestLevel(countrySlug, progress)
-                  : "none";
-                const fillColor = getLevelColor(level);
+        {/* Simplified continent outlines */}
+        <defs>
+          <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#2a2a3e" strokeWidth="0.2" />
+          </pattern>
+        </defs>
+        
+        {/* Background grid */}
+        <rect width="100" height="70" fill="url(#grid)" />
+        
+        {/* Simplified continents - decorative paths */}
+        {/* North America */}
+        <path
+          d="M 5 15 Q 15 10, 25 15 Q 30 20, 28 30 Q 25 35, 20 38 Q 15 35, 10 30 Q 5 25, 5 15"
+          fill="#2A2A3E"
+          stroke="#3A3A4E"
+          strokeWidth="0.3"
+        />
+        
+        {/* South America */}
+        <path
+          d="M 25 45 Q 30 42, 35 48 Q 38 55, 35 65 Q 30 68, 28 65 Q 25 58, 25 45"
+          fill="#2A2A3E"
+          stroke="#3A3A4E"
+          strokeWidth="0.3"
+        />
+        
+        {/* Europe */}
+        <path
+          d="M 42 20 Q 50 18, 55 22 Q 58 25, 55 30 Q 50 32, 45 30 Q 42 28, 42 20"
+          fill="#2A2A3E"
+          stroke="#3A3A4E"
+          strokeWidth="0.3"
+        />
+        
+        {/* Africa */}
+        <path
+          d="M 42 35 Q 50 32, 58 38 Q 62 48, 55 60 Q 48 65, 42 58 Q 40 48, 42 35"
+          fill="#2A2A3E"
+          stroke="#3A3A4E"
+          strokeWidth="0.3"
+        />
+        
+        {/* Asia */}
+        <path
+          d="M 55 18 Q 70 15, 85 22 Q 90 30, 85 40 Q 75 45, 65 42 Q 58 38, 55 30 Q 54 24, 55 18"
+          fill="#2A2A3E"
+          stroke="#3A3A4E"
+          strokeWidth="0.3"
+        />
+        
+        {/* Australia */}
+        <path
+          d="M 78 55 Q 88 52, 92 58 Q 93 65, 88 68 Q 82 68, 78 63 Q 76 58, 78 55"
+          fill="#2A2A3E"
+          stroke="#3A3A4E"
+          strokeWidth="0.3"
+        />
 
-                const levelLabel =
-                  level === "none"
-                    ? "Not started"
-                    : level.charAt(0).toUpperCase() + level.slice(1);
+        {/* Country markers */}
+        {AVAILABLE_COUNTRIES.map((country) => {
+          const level = getCountryHighestLevel(country.slug, progress);
+          const styles = getLevelStyles(level);
+          const isHovered = hoveredCountry === country.slug;
 
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={fillColor}
-                    stroke="#1A1A1D"
-                    strokeWidth={0.5}
-                    style={{
-                      default: { outline: "none" },
-                      hover: {
-                        outline: "none",
-                        fill: countrySlug ? "#0D7377" : "#3A3A3E",
-                        cursor: countrySlug ? "pointer" : "default",
-                      },
-                      pressed: { outline: "none" },
-                    }}
-                    onMouseEnter={(evt) => {
-                      const { clientX, clientY } = evt;
-                      const rect = evt.currentTarget
-                        .closest("svg")
-                        ?.getBoundingClientRect();
-                      if (rect) {
-                        setTooltipPosition({
-                          x: clientX - rect.left,
-                          y: clientY - rect.top,
-                        });
-                      }
-                      setTooltipContent(
-                        countrySlug
-                          ? `${geoName} - ${levelLabel}`
-                          : geoName
-                      );
-                    }}
-                    onMouseLeave={() => {
-                      setTooltipContent(null);
-                    }}
+          return (
+            <g key={country.slug}>
+              {/* Marker */}
+              <Link href={`/protected/country/${country.slug}`}>
+                <circle
+                  cx={country.x}
+                  cy={country.y}
+                  r={isHovered ? 3.5 : 2.5}
+                  fill={styles.fill}
+                  stroke={styles.stroke}
+                  strokeWidth="0.5"
+                  style={{
+                    filter: level !== "none" ? styles.glow : "none",
+                    transition: "all 0.2s ease",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={() => setHoveredCountry(country.slug)}
+                  onMouseLeave={() => setHoveredCountry(null)}
+                />
+              </Link>
+              
+              {/* Label on hover */}
+              {isHovered && (
+                <g>
+                  <rect
+                    x={country.x - 12}
+                    y={country.y - 10}
+                    width="24"
+                    height="6"
+                    rx="1"
+                    fill="#1a1a2e"
+                    fillOpacity="0.9"
+                    stroke={styles.stroke}
+                    strokeWidth="0.3"
                   />
-                );
-              })
-            }
-          </Geographies>
-        </ZoomableGroup>
-      </ComposableMap>
+                  <text
+                    x={country.x}
+                    y={country.y - 6}
+                    textAnchor="middle"
+                    fill="#fff"
+                    fontSize="2.5"
+                    fontWeight="500"
+                  >
+                    {country.name}
+                  </text>
+                </g>
+              )}
+            </g>
+          );
+        })}
+      </svg>
+
+      {/* Legend */}
+      <div className="mt-6 flex flex-wrap justify-center gap-4 md:gap-6">
+        <div className="flex items-center gap-2">
+          <div
+            className="h-4 w-4 rounded-full"
+            style={{ backgroundColor: "#FFD700", boxShadow: "0 0 8px rgba(255, 215, 0, 0.6)" }}
+          />
+          <span className="text-sm text-muted-foreground">Gold (Advanced)</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div
+            className="h-4 w-4 rounded-full"
+            style={{ backgroundColor: "#C0C0C0", boxShadow: "0 0 8px rgba(192, 192, 192, 0.6)" }}
+          />
+          <span className="text-sm text-muted-foreground">Silver (Intermediate)</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div
+            className="h-4 w-4 rounded-full"
+            style={{ backgroundColor: "#CD7F32", boxShadow: "0 0 8px rgba(205, 127, 50, 0.6)" }}
+          />
+          <span className="text-sm text-muted-foreground">Bronze (Beginner)</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div
+            className="h-4 w-4 rounded-full"
+            style={{ backgroundColor: "#3A3A3E" }}
+          />
+          <span className="text-sm text-muted-foreground">Not Started</span>
+        </div>
+      </div>
+
+      {/* Stats summary */}
+      <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+        {["advanced", "intermediate", "beginner", "none"].map((level) => {
+          const count = AVAILABLE_COUNTRIES.filter(
+            (c) => getCountryHighestLevel(c.slug, progress) === level
+          ).length;
+          const styles = getLevelStyles(level as "none" | "beginner" | "intermediate" | "advanced");
+          
+          return (
+            <div
+              key={level}
+              className="rounded-lg border border-border bg-card p-4 text-center"
+            >
+              <div
+                className="mx-auto mb-2 h-8 w-8 rounded-full"
+                style={{
+                  backgroundColor: styles.fill,
+                  boxShadow: level !== "none" ? `0 0 12px ${styles.fill}80` : "none",
+                }}
+              />
+              <div className="text-2xl font-bold text-foreground">{count}</div>
+              <div className="text-xs text-muted-foreground capitalize">
+                {level === "none" ? "Not Started" : level}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
