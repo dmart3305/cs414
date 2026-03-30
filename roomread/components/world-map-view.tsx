@@ -105,6 +105,9 @@ function getLevelColor(level: "none" | "beginner" | "intermediate" | "advanced")
   }
 }
 
+// Define map center as a constant to avoid JSX type assertion issues
+const MAP_CENTER: [number, number] = [0, 30];
+
 export function WorldMapView() {
   const { data, isLoading } = useSWR("/api/progress", fetcher);
   const [tooltipContent, setTooltipContent] = useState<string | null>(null);
@@ -140,13 +143,13 @@ export function WorldMapView() {
         projection="geoMercator"
         projectionConfig={{
           scale: 120,
-          center: [0, 30] as [number, number],
+          center: MAP_CENTER,
         }}
         width={800}
         height={500}
         className="w-full h-[400px] md:h-[500px]"
       >
-        <ZoomableGroup center={[0, 30] as [number, number]} zoom={1}>
+        <ZoomableGroup center={MAP_CENTER} zoom={1}>
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map((geo) => {
