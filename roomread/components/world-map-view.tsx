@@ -1,20 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useSWR from "swr";
 import Link from "next/link";
+import Image from "next/image";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-// Countries that have lessons available with their approximate positions on a simplified world view
+// Countries with their approximate positions on the world map image (percentage-based)
 const AVAILABLE_COUNTRIES = [
-  { slug: "france", name: "France", x: 48, y: 32 },
-  { slug: "japan", name: "Japan", x: 82, y: 38 },
-  { slug: "morocco", name: "Morocco", x: 45, y: 42 },
-  { slug: "brazil", name: "Brazil", x: 32, y: 62 },
-  { slug: "india", name: "India", x: 70, y: 45 },
-  { slug: "germany", name: "Germany", x: 50, y: 30 },
-  { slug: "thailand", name: "Thailand", x: 75, y: 50 },
+  { slug: "france", name: "France", x: 47, y: 28 },
+  { slug: "japan", name: "Japan", x: 85, y: 35 },
+  { slug: "morocco", name: "Morocco", x: 44, y: 38 },
+  { slug: "brazil", name: "Brazil", x: 30, y: 62 },
+  { slug: "india", name: "India", x: 70, y: 42 },
+  { slug: "germany", name: "Germany", x: 50, y: 26 },
+  { slug: "thailand", name: "Thailand", x: 76, y: 48 },
 ];
 
 interface ProgressItem {
@@ -48,31 +49,31 @@ function getLevelStyles(level: "none" | "beginner" | "intermediate" | "advanced"
   switch (level) {
     case "advanced":
       return {
-        fill: "#FFD700",
-        stroke: "#B8860B",
+        bg: "bg-yellow-400",
+        border: "border-yellow-600",
+        shadow: "shadow-[0_0_12px_rgba(250,204,21,0.7)]",
         label: "Gold",
-        glow: "drop-shadow(0 0 8px rgba(255, 215, 0, 0.6))",
       };
     case "intermediate":
       return {
-        fill: "#C0C0C0",
-        stroke: "#808080",
+        bg: "bg-gray-300",
+        border: "border-gray-400",
+        shadow: "shadow-[0_0_12px_rgba(156,163,175,0.7)]",
         label: "Silver",
-        glow: "drop-shadow(0 0 8px rgba(192, 192, 192, 0.6))",
       };
     case "beginner":
       return {
-        fill: "#CD7F32",
-        stroke: "#8B4513",
+        bg: "bg-amber-600",
+        border: "border-amber-800",
+        shadow: "shadow-[0_0_12px_rgba(217,119,6,0.7)]",
         label: "Bronze",
-        glow: "drop-shadow(0 0 8px rgba(205, 127, 50, 0.6))",
       };
     default:
       return {
-        fill: "#3A3A3E",
-        stroke: "#2A2A2E",
+        bg: "bg-gray-500",
+        border: "border-gray-600",
+        shadow: "",
         label: "Not Started",
-        glow: "none",
       };
   }
 }
@@ -80,17 +81,12 @@ function getLevelStyles(level: "none" | "beginner" | "intermediate" | "advanced"
 export function WorldMapView() {
   const { data, isLoading } = useSWR("/api/progress", fetcher);
   const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
-  const [mapLoaded, setMapLoaded] = useState(false);
 
   const progress: ProgressItem[] = data?.progress || [];
 
-  useEffect(() => {
-    setMapLoaded(true);
-  }, []);
-
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-[500px]">
+      <div className="flex items-center justify-center h-[400px]">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
       </div>
     );
@@ -98,180 +94,117 @@ export function WorldMapView() {
 
   return (
     <div className="relative">
-      {/* SVG World Map */}
-      <svg
-        viewBox="0 0 100 70"
-        className="w-full h-[400px] md:h-[500px] bg-[#1a1a2e] rounded-xl"
-        style={{ filter: mapLoaded ? "none" : "blur(4px)" }}
-      >
-        {/* Simplified continent outlines */}
-        <defs>
-          <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="#2a2a3e" strokeWidth="0.2" />
-          </pattern>
-        </defs>
-        
-        {/* Background grid */}
-        <rect width="100" height="70" fill="url(#grid)" />
-        
-        {/* Simplified continents - decorative paths */}
-        {/* North America */}
-        <path
-          d="M 5 15 Q 15 10, 25 15 Q 30 20, 28 30 Q 25 35, 20 38 Q 15 35, 10 30 Q 5 25, 5 15"
-          fill="#2A2A3E"
-          stroke="#3A3A4E"
-          strokeWidth="0.3"
-        />
-        
-        {/* South America */}
-        <path
-          d="M 25 45 Q 30 42, 35 48 Q 38 55, 35 65 Q 30 68, 28 65 Q 25 58, 25 45"
-          fill="#2A2A3E"
-          stroke="#3A3A4E"
-          strokeWidth="0.3"
-        />
-        
-        {/* Europe */}
-        <path
-          d="M 42 20 Q 50 18, 55 22 Q 58 25, 55 30 Q 50 32, 45 30 Q 42 28, 42 20"
-          fill="#2A2A3E"
-          stroke="#3A3A4E"
-          strokeWidth="0.3"
-        />
-        
-        {/* Africa */}
-        <path
-          d="M 42 35 Q 50 32, 58 38 Q 62 48, 55 60 Q 48 65, 42 58 Q 40 48, 42 35"
-          fill="#2A2A3E"
-          stroke="#3A3A4E"
-          strokeWidth="0.3"
-        />
-        
-        {/* Asia */}
-        <path
-          d="M 55 18 Q 70 15, 85 22 Q 90 30, 85 40 Q 75 45, 65 42 Q 58 38, 55 30 Q 54 24, 55 18"
-          fill="#2A2A3E"
-          stroke="#3A3A4E"
-          strokeWidth="0.3"
-        />
-        
-        {/* Australia */}
-        <path
-          d="M 78 55 Q 88 52, 92 58 Q 93 65, 88 68 Q 82 68, 78 63 Q 76 58, 78 55"
-          fill="#2A2A3E"
-          stroke="#3A3A4E"
-          strokeWidth="0.3"
+      {/* World Map Container */}
+      <div className="relative w-full aspect-[1516/768] rounded-xl overflow-hidden border border-border">
+        {/* Map Image */}
+        <Image
+          src="/images/worldmap.png"
+          alt="World Map"
+          fill
+          className="object-cover"
+          priority
         />
 
-        {/* Country markers */}
+        {/* Country Markers */}
         {AVAILABLE_COUNTRIES.map((country) => {
           const level = getCountryHighestLevel(country.slug, progress);
           const styles = getLevelStyles(level);
           const isHovered = hoveredCountry === country.slug;
 
           return (
-            <g key={country.slug}>
-              {/* Marker */}
+            <div
+              key={country.slug}
+              className="absolute"
+              style={{
+                left: `${country.x}%`,
+                top: `${country.y}%`,
+                transform: "translate(-50%, -50%)",
+              }}
+            >
               <Link href={`/protected/country/${country.slug}`}>
-                <circle
-                  cx={country.x}
-                  cy={country.y}
-                  r={isHovered ? 3.5 : 2.5}
-                  fill={styles.fill}
-                  stroke={styles.stroke}
-                  strokeWidth="0.5"
-                  style={{
-                    filter: level !== "none" ? styles.glow : "none",
-                    transition: "all 0.2s ease",
-                    cursor: "pointer",
-                  }}
+                <div
+                  className={`
+                    relative cursor-pointer transition-all duration-200
+                    ${isHovered ? "scale-150 z-20" : "scale-100 z-10"}
+                  `}
                   onMouseEnter={() => setHoveredCountry(country.slug)}
                   onMouseLeave={() => setHoveredCountry(null)}
-                />
-              </Link>
-              
-              {/* Label on hover */}
-              {isHovered && (
-                <g>
-                  <rect
-                    x={country.x - 12}
-                    y={country.y - 10}
-                    width="24"
-                    height="6"
-                    rx="1"
-                    fill="#1a1a2e"
-                    fillOpacity="0.9"
-                    stroke={styles.stroke}
-                    strokeWidth="0.3"
+                >
+                  {/* Pulse animation for countries with progress */}
+                  {level !== "none" && (
+                    <div
+                      className={`absolute inset-0 rounded-full ${styles.bg} animate-ping opacity-40`}
+                      style={{ width: "24px", height: "24px", margin: "-4px" }}
+                    />
+                  )}
+                  
+                  {/* Marker dot */}
+                  <div
+                    className={`
+                      w-4 h-4 rounded-full border-2
+                      ${styles.bg} ${styles.border} ${styles.shadow}
+                    `}
                   />
-                  <text
-                    x={country.x}
-                    y={country.y - 6}
-                    textAnchor="middle"
-                    fill="#fff"
-                    fontSize="2.5"
-                    fontWeight="500"
-                  >
-                    {country.name}
-                  </text>
-                </g>
-              )}
-            </g>
+
+                  {/* Tooltip on hover */}
+                  {isHovered && (
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap">
+                      <div className="bg-card border border-border rounded-lg px-3 py-1.5 shadow-lg">
+                        <p className="text-sm font-medium text-foreground">
+                          {country.name}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {styles.label}
+                        </p>
+                      </div>
+                      {/* Arrow */}
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px">
+                        <div className="border-4 border-transparent border-t-border" />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </Link>
+            </div>
           );
         })}
-      </svg>
+      </div>
 
       {/* Legend */}
       <div className="mt-6 flex flex-wrap justify-center gap-4 md:gap-6">
         <div className="flex items-center gap-2">
-          <div
-            className="h-4 w-4 rounded-full"
-            style={{ backgroundColor: "#FFD700", boxShadow: "0 0 8px rgba(255, 215, 0, 0.6)" }}
-          />
+          <div className="h-4 w-4 rounded-full bg-yellow-400 border-2 border-yellow-600 shadow-[0_0_8px_rgba(250,204,21,0.6)]" />
           <span className="text-sm text-muted-foreground">Gold (Advanced)</span>
         </div>
         <div className="flex items-center gap-2">
-          <div
-            className="h-4 w-4 rounded-full"
-            style={{ backgroundColor: "#C0C0C0", boxShadow: "0 0 8px rgba(192, 192, 192, 0.6)" }}
-          />
+          <div className="h-4 w-4 rounded-full bg-gray-300 border-2 border-gray-400 shadow-[0_0_8px_rgba(156,163,175,0.6)]" />
           <span className="text-sm text-muted-foreground">Silver (Intermediate)</span>
         </div>
         <div className="flex items-center gap-2">
-          <div
-            className="h-4 w-4 rounded-full"
-            style={{ backgroundColor: "#CD7F32", boxShadow: "0 0 8px rgba(205, 127, 50, 0.6)" }}
-          />
+          <div className="h-4 w-4 rounded-full bg-amber-600 border-2 border-amber-800 shadow-[0_0_8px_rgba(217,119,6,0.6)]" />
           <span className="text-sm text-muted-foreground">Bronze (Beginner)</span>
         </div>
         <div className="flex items-center gap-2">
-          <div
-            className="h-4 w-4 rounded-full"
-            style={{ backgroundColor: "#3A3A3E" }}
-          />
+          <div className="h-4 w-4 rounded-full bg-gray-500 border-2 border-gray-600" />
           <span className="text-sm text-muted-foreground">Not Started</span>
         </div>
       </div>
 
       {/* Stats summary */}
       <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-        {["advanced", "intermediate", "beginner", "none"].map((level) => {
+        {(["advanced", "intermediate", "beginner", "none"] as const).map((level) => {
           const count = AVAILABLE_COUNTRIES.filter(
             (c) => getCountryHighestLevel(c.slug, progress) === level
           ).length;
-          const styles = getLevelStyles(level as "none" | "beginner" | "intermediate" | "advanced");
-          
+          const styles = getLevelStyles(level);
+
           return (
             <div
               key={level}
               className="rounded-lg border border-border bg-card p-4 text-center"
             >
               <div
-                className="mx-auto mb-2 h-8 w-8 rounded-full"
-                style={{
-                  backgroundColor: styles.fill,
-                  boxShadow: level !== "none" ? `0 0 12px ${styles.fill}80` : "none",
-                }}
+                className={`mx-auto mb-2 h-8 w-8 rounded-full border-2 ${styles.bg} ${styles.border} ${styles.shadow}`}
               />
               <div className="text-2xl font-bold text-foreground">{count}</div>
               <div className="text-xs text-muted-foreground capitalize">
