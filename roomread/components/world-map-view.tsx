@@ -6,7 +6,6 @@ import {
   Geographies,
   Geography,
   ZoomableGroup,
-  createCoordinates,
 } from "@vnedyalk0v/react19-simple-maps";
 import useSWR from "swr";
 
@@ -141,13 +140,13 @@ export function WorldMapView() {
         projection="geoMercator"
         projectionConfig={{
           scale: 120,
-          center: createCoordinates(0, 30),
+          center: [0, 30] as [number, number],
         }}
         width={800}
         height={500}
         className="w-full h-[400px] md:h-[500px]"
       >
-        <ZoomableGroup center={createCoordinates(0, 30)} zoom={1}>
+        <ZoomableGroup center={[0, 30] as [number, number]} zoom={1}>
           <Geographies geography={geoUrl}>
             {({ geographies }) =>
               geographies.map((geo) => {
