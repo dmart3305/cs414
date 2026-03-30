@@ -8,7 +8,6 @@ import {
   Geography,
   ZoomableGroup,
   Marker,
-  createCoordinates,
 } from "@vnedyalk0v/react19-simple-maps";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
@@ -26,15 +25,15 @@ const COUNTRY_NAME_TO_SLUG: Record<string, string> = {
   Thailand: "thailand",
 };
 
-// Countries with their coordinates for markers
-const COUNTRY_MARKERS = [
-  { slug: "france", name: "France", coordinates: createCoordinates(2.2137, 46.2276) },
-  { slug: "japan", name: "Japan", coordinates: createCoordinates(138.2529, 36.2048) },
-  { slug: "morocco", name: "Morocco", coordinates: createCoordinates(-7.0926, 31.7917) },
-  { slug: "brazil", name: "Brazil", coordinates: createCoordinates(-51.9253, -14.235) },
-  { slug: "india", name: "India", coordinates: createCoordinates(78.9629, 20.5937) },
-  { slug: "germany", name: "Germany", coordinates: createCoordinates(10.4515, 51.1657) },
-  { slug: "thailand", name: "Thailand", coordinates: createCoordinates(100.9925, 15.870) },
+// Countries with their coordinates for markers [longitude, latitude]
+const COUNTRY_MARKERS: { slug: string; name: string; coordinates: [number, number] }[] = [
+  { slug: "france", name: "France", coordinates: [2.2137, 46.2276] },
+  { slug: "japan", name: "Japan", coordinates: [138.2529, 36.2048] },
+  { slug: "morocco", name: "Morocco", coordinates: [-7.0926, 31.7917] },
+  { slug: "brazil", name: "Brazil", coordinates: [-51.9253, -14.235] },
+  { slug: "india", name: "India", coordinates: [78.9629, 20.5937] },
+  { slug: "germany", name: "Germany", coordinates: [10.4515, 51.1657] },
+  { slug: "thailand", name: "Thailand", coordinates: [100.9925, 15.870] },
 ];
 
 interface ProgressItem {
@@ -133,14 +132,14 @@ export function WorldMapView() {
           projection="geoMercator"
           projectionConfig={{
             scale: 140,
-            center: createCoordinates(0, 30),
+            center: [0, 30] as [number, number],
           }}
           width={800}
           height={450}
           style={{ width: "100%", height: "auto" }}
         >
           <ZoomableGroup
-            center={createCoordinates(0, 30)}
+            center={[0, 30] as [number, number]}
             zoom={1}
             minZoom={1}
             maxZoom={4}
