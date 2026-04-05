@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { CountryCard } from "@/components/country-card";
+import { WorldMap } from "@/components/world-map";
 import {
   Search,
   Compass,
@@ -129,6 +130,9 @@ export default async function ProtectedPage() {
             </div>
           </div>
         </section>
+
+        {/* World Progress Map */}
+        <WorldMap />
 
         {/* Featured countries */}
         <section className="mb-10">
