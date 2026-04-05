@@ -7,6 +7,8 @@ import {
   Geographies,
   Geography,
   ZoomableGroup,
+  createCoordinates,
+  createZoomConfig,
 } from "@vnedyalk0v/react19-simple-maps";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -30,7 +32,6 @@ interface TooltipState {
 // ── Constants ─────────────────────────────────────────────────────────────────
 
 // Country slug → ISO-3166-1 alpha-3 code.
-// Extend this map as new countries are added to the app.
 const SLUG_TO_ISO3: Record<string, string> = {
   france: "FRA",
   germany: "DEU",
@@ -54,19 +55,15 @@ const SLUG_TO_ISO3: Record<string, string> = {
   russia: "RUS",
 };
 
-// Total number of distinct categories a country can have (from france.json we
-// can see there are 5). Adjust if the schema changes.
+// Total distinct categories per country for Gold tier.
 const TOTAL_CATEGORIES = 5;
 
-// Tier color palette — aligned with the app's design tokens.
-// Gold  → --accent (#D4A853)
-// Silver → a cool neutral silver
-// Bronze → a warm copper tone
+// Tier colors aligned with the app's design tokens.
 const TIER_COLORS: Record<Tier, string> = {
-  gold: "#D4A853",   // --accent
+  gold: "#D4A853",
   silver: "#A8B5C2",
   bronze: "#C07A45",
-  none: "#D6D3CE",   // neutral geography fill
+  none: "#D6D3CE",
 };
 
 const TIER_HOVER_COLORS: Record<Tier, string> = {
@@ -77,56 +74,13 @@ const TIER_HOVER_COLORS: Record<Tier, string> = {
 };
 
 const TIER_LABELS: Record<Tier, string> = {
-  gold: "Gold (Advanced)",
-  silver: "Silver (Intermediate)",
-  bronze: "Bronze (Beginner)",
+  gold: "Gold — Advanced",
+  silver: "Silver — Intermediate",
+  bronze: "Bronze — Beginner",
   none: "Not started",
 };
 
-// Natural-Earth topojson hosted on the official unpkg CDN (small, fast)
-const GEO_URL =
-  "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
-
-const fetcher = (url: string) =>
-  fetch(url).then((res) => res.json()).then((d) => d.progress as ProgressRow[]);
-
-/**
- * Derives per-country tiers from the flat lesson_progress rows.
- *
- * Bronze  → 1+ completed lesson for the country
- * Silver  → 3+ distinct completed categories for the country
- * Gold    → all TOTAL_CATEGORIES distinct categories completed
- */
-function computeTiers(rows: ProgressRow[]): Record<string, Tier> {
-  const byCountry: Record<string, Set<string>> = {};
-
-  for (const row of rows) {
-    if (!byCountry[row.country_slug]) {
-      byCountry[row.country_slug] = new Set();
-    }
-    byCountry[row.country_slug].add(row.category_slug);
-  }
-
-  const tiers: Record<string, Tier> = {};
-  for (const [slug, categories] of Object.entries(byCountry)) {
-    const count = categories.size;
-    if (count >= TOTAL_CATEGORIES) {
-      tiers[slug] = "gold";
-    } else if (count >= 3) {
-      tiers[slug] = "silver";
-    } else {
-      tiers[slug] = "bronze";
-    }
-  }
-  return tiers;
-}
-
-// world-atlas uses numeric ISO-3166-1 codes inside the topojson.
-// We need alpha-3 → numeric lookup. We keep a minimal map of the countries
-// already in the app plus common ones so the feature works correctly without
-// a heavy external dependency.
+// world-atlas numeric IDs (ISO 3166-1 numeric)
 const ISO3_TO_NUMERIC: Record<string, string> = {
   FRA: "250",
   DEU: "276",
@@ -150,6 +104,37 @@ const ISO3_TO_NUMERIC: Record<string, string> = {
   RUS: "643",
 };
 
+// Use unpkg — reliable HTTPS CDN that the library's security layer allows.
+const GEO_URL =
+  "https://unpkg.com/world-atlas@2/countries-110m.json";
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
+const fetcher = (url: string) =>
+  fetch(url)
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
+    .then((d) => (d.progress as ProgressRow[]) ?? []);
+
+function computeTiers(rows: ProgressRow[]): Record<string, Tier> {
+  const byCountry: Record<string, Set<string>> = {};
+  for (const row of rows) {
+    if (!byCountry[row.country_slug]) byCountry[row.country_slug] = new Set();
+    byCountry[row.country_slug].add(row.category_slug);
+  }
+
+  const tiers: Record<string, Tier> = {};
+  for (const [slug, cats] of Object.entries(byCountry)) {
+    const n = cats.size;
+    if (n >= TOTAL_CATEGORIES) tiers[slug] = "gold";
+    else if (n >= 3) tiers[slug] = "silver";
+    else tiers[slug] = "bronze";
+  }
+  return tiers;
+}
+
 // ── Component ─────────────────────────────────────────────────────────────────
 
 export function WorldMap() {
@@ -162,7 +147,7 @@ export function WorldMap() {
 
   const tiersBySlug = rows ? computeTiers(rows) : {};
 
-  // Build a numeric-code → tier lookup that the Geography renderer can use.
+  // Build numeric-id → tier lookup for fast Geography rendering.
   const tiersByNumeric: Record<string, Tier> = {};
   for (const [slug, tier] of Object.entries(tiersBySlug)) {
     const iso3 = SLUG_TO_ISO3[slug];
@@ -185,7 +170,7 @@ export function WorldMap() {
           </p>
         </div>
 
-        {/* Legend */}
+        {/* Desktop legend */}
         <div className="hidden sm:flex items-center gap-5">
           {(["bronze", "silver", "gold"] as const).map((tier) => (
             <div key={tier} className="flex items-center gap-1.5">
@@ -206,7 +191,6 @@ export function WorldMap() {
         className="relative rounded-xl border border-border overflow-hidden"
         style={{ background: "var(--card)" }}
       >
-        {/* Loading overlay */}
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center z-10 bg-card/80">
             <span className="text-sm text-muted-foreground animate-pulse">
@@ -217,14 +201,25 @@ export function WorldMap() {
 
         <ComposableMap
           projection="geoNaturalEarth1"
+          projectionConfig={{
+            scale: 155,
+            center: createCoordinates(0, 0),
+          }}
+          width={800}
+          height={420}
           style={{ width: "100%", height: "auto" }}
-          projectionConfig={{ scale: 155 }}
         >
-          <ZoomableGroup zoom={1}>
-            <Geographies geography={GEO_URL}>
+          <ZoomableGroup
+            zoom={1}
+            center={createCoordinates(0, 0)}
+            {...createZoomConfig(0.8, 6)}
+          >
+            <Geographies
+              geography={GEO_URL}
+              errorBoundary={false}
+            >
               {({ geographies }: { geographies: any[] }) =>
                 geographies.map((geo) => {
-                  // world-atlas stores the numeric code under id
                   const numericId = String(geo.id);
                   const tier: Tier = tiersByNumeric[numericId] ?? "none";
                   const fill = TIER_COLORS[tier];
@@ -239,14 +234,17 @@ export function WorldMap() {
                       strokeWidth={0.4}
                       style={{
                         default: { fill, outline: "none" },
-                        hover: { fill: hoverFill, outline: "none", cursor: tier !== "none" ? "pointer" : "default" },
+                        hover: {
+                          fill: hoverFill,
+                          outline: "none",
+                          cursor:
+                            tier !== "none" ? "pointer" : "default",
+                        },
                         pressed: { fill: hoverFill, outline: "none" },
                       }}
                       onMouseEnter={(evt: React.MouseEvent) => {
-                        const name: string =
-                          geo.properties?.name ?? "Unknown";
                         setTooltip({
-                          name,
+                          name: geo.properties?.name ?? "Unknown",
                           tier,
                           x: evt.clientX,
                           y: evt.clientY,
@@ -284,7 +282,7 @@ export function WorldMap() {
         </div>
       </div>
 
-      {/* Tooltip — rendered in a portal-like fixed div */}
+      {/* Tooltip */}
       {tooltip && (
         <div
           className="fixed z-50 pointer-events-none px-3 py-2 rounded-lg shadow-lg border border-border text-sm"
