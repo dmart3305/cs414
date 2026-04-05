@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useSWR from "swr";
 import {
   ComposableMap,
@@ -145,6 +145,18 @@ export function WorldMap() {
 
   const [tooltip, setTooltip] = useState<TooltipState | null>(null);
 
+  // Allow HTTP in dev to prevent the library's security layer from blocking
+  // the geography fetch when running in non-HTTPS preview environments.
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      import("@vnedyalk0v/react19-simple-maps/utils").then(
+        ({ enableDevelopmentMode }) => {
+          enableDevelopmentMode(true);
+        }
+      );
+    }
+  }, []);
+
   const tiersBySlug = rows ? computeTiers(rows) : {};
 
   // Build numeric-id → tier lookup for fast Geography rendering.
@@ -208,6 +220,7 @@ export function WorldMap() {
           width={800}
           height={420}
           style={{ width: "100%", height: "auto" }}
+          debug={true}
         >
           <ZoomableGroup
             zoom={1}
@@ -242,7 +255,7 @@ export function WorldMap() {
                         },
                         pressed: { fill: hoverFill, outline: "none" },
                       }}
-                      onMouseEnter={(evt: React.MouseEvent) => {
+                      onMouseEnter={(evt: React.MouseEvent, _data: unknown) => {
                         setTooltip({
                           name: geo.properties?.name ?? "Unknown",
                           tier,
@@ -250,14 +263,14 @@ export function WorldMap() {
                           y: evt.clientY,
                         });
                       }}
-                      onMouseMove={(evt: React.MouseEvent) => {
+                      onMouseMove={(evt: React.MouseEvent, _data: unknown) => {
                         setTooltip((prev) =>
                           prev
                             ? { ...prev, x: evt.clientX, y: evt.clientY }
                             : null
                         );
                       }}
-                      onMouseLeave={() => setTooltip(null)}
+                      onMouseLeave={(evt: React.MouseEvent, _data: unknown) => setTooltip(null)}
                     />
                   );
                 })
