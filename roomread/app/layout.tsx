@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { PlaneTransition } from "@/components/plane-transition";
 
 const _geistSans = Geist({
   subsets: ["latin"],
@@ -23,7 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <PlaneTransition />
+        {children}
+      </body>
     </html>
   );
 }
