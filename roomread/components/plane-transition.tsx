@@ -15,9 +15,9 @@ interface Plane {
 function generatePlanes(count: number): Plane[] {
   return Array.from({ length: count }, (_, i) => ({
     id: i,
-    top: 10 + Math.random() * 80,
-    delay: i * 180 + Math.random() * 120,
-    scale: 0.7 + Math.random() * 0.7,
+    top: 8 + Math.random() * 84,
+    delay: i * 150 + Math.random() * 100,
+    scale: 1.4 + Math.random() * 0.8,
     speed: 900 + Math.random() * 500,
     flip: false,
   }));
@@ -42,7 +42,7 @@ export function PlaneTransition() {
 
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
-    const count = 3 + Math.floor(Math.random() * 3); // 3-5 planes
+    const count = 6 + Math.floor(Math.random() * 4); // 6-9 planes
     setPlanes(generatePlanes(count));
     setVisible(true);
 
@@ -78,8 +78,8 @@ export function PlaneTransition() {
           {/* SVG plane facing right */}
           <svg
             viewBox="0 0 64 64"
-            width="48"
-            height="48"
+            width="72"
+            height="72"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
