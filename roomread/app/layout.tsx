@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { PlaneTransition } from "@/components/plane-transition";
+import { MusicProvider } from "@/components/music-provider";
 
 const _geistSans = Geist({
   subsets: ["latin"],
@@ -25,8 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-sans antialiased">
-        <PlaneTransition />
-        {children}
+        <MusicProvider>
+          <PlaneTransition />
+          {children}
+        </MusicProvider>
       </body>
     </html>
   );

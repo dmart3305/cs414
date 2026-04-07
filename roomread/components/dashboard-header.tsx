@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { Globe, LogOut, Star } from "lucide-react";
 import useSWR from "swr";
 import { useSound } from "@/lib/use-sound";
+import { useMusic } from "@/components/music-provider";
+import { Volume2, VolumeX } from "lucide-react";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -28,6 +30,8 @@ export function DashboardHeader({
   };
 
   const xpToNextLevel = stats ? stats.xpForNextLevel - stats.currentXp : 0;
+
+  const { muted, toggleMute } = useMusic();
 
   return (
     <header className="border-b border-border bg-card">
@@ -125,7 +129,16 @@ export function DashboardHeader({
               </div>
             )}
           </div>
-
+          <button
+            onClick={toggleMute}
+            className="flex h-9 items-center justify-center rounded-lg border border-border px-3 hover:bg-secondary transition-colors"
+          >
+            {muted ? (
+              <VolumeX className="h-4 w-4 text-muted-foreground" />
+            ) : (
+              <Volume2 className="h-4 w-4 text-primary" />
+            )}
+          </button>
           {/* 🔊 SIGN OUT BUTTON WITH SOUND */}
           <button
             onClick={async () => {
