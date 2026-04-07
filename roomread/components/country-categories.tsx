@@ -1,7 +1,7 @@
 "use client";
 
 import { BackgroundPattern } from "@/components/background-pattern";
-import Link from "next/link";
+import { SoundLink } from "@/components/sound-link";
 import useSWR from "swr";
 import {
   Utensils,
@@ -96,7 +96,7 @@ export function CountryCategories({ slug }: { slug: string }) {
           const quizHref = `/protected/country/${slug}/${category.slug}`;
 
           return (
-            <Link
+            <SoundLink
               key={category.title}
               href={quizHref}
               className={`group flex items-start gap-4 rounded-xl border p-5 transition-all duration-300 transform hover:scale-[1.03] hover:-translate-y-1 hover:shadow-lg ${
@@ -105,6 +105,7 @@ export function CountryCategories({ slug }: { slug: string }) {
                   : "border-border bg-card hover:border-primary/30"
               }`}
             >
+              {/* Icon */}
               <div
                 className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors ${
                   isCompleted
@@ -115,6 +116,7 @@ export function CountryCategories({ slug }: { slug: string }) {
                 <Icon className="h-5 w-5" />
               </div>
 
+              {/* Content */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
@@ -141,7 +143,7 @@ export function CountryCategories({ slug }: { slug: string }) {
                   {category.description}
                 </p>
               </div>
-            </Link>
+            </SoundLink>
           );
         })}
       </div>

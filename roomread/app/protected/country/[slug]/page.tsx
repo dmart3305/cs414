@@ -5,7 +5,7 @@ import { DashboardHeader } from "@/components/dashboard-header";
 import { CountryCategories } from "@/components/country-categories";
 import { ImageSlideshow } from "@/components/image-slideshow";
 import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
+import { SoundLink } from "@/components/sound-link";
 
 // Country Description
 const COUNTRIES: Record<
@@ -66,13 +66,13 @@ export default async function CountryPage({
       <main className="mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">
         
         {/* Back button */}
-        <Link
+        <SoundLink
           href="/protected"
           className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to all countries
-        </Link>
+        </SoundLink>
 
         {/* SLIDESHOW */}
         <ImageSlideshow images={country.images} />

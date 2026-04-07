@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
+import { SoundLink } from "@/components/sound-link";
 import { MapPin } from "lucide-react";
 
 interface CountryCardProps {
   name: string;
   region: string;
   description: string;
-  flag: string; // Can be an emoji or an image URL/path
+  flag: string;
   image?: string;
 }
 
@@ -21,7 +21,7 @@ export function CountryCard({
   const slug = name.toLowerCase().replace(/\s+/g, "-");
 
   return (
-    <Link
+    <SoundLink
       href={`/protected/country/${slug}`}
       className="group relative flex flex-col h-full rounded-xl border border-border bg-card overflow-hidden 
       transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 hover:shadow-lg"
@@ -48,7 +48,6 @@ export function CountryCard({
       {/* ================= CONTENT ================= */}
       <div className="relative p-5 flex flex-col flex-1">
         <div className="flex items-start gap-4">
-          {/* Flag - supports both emoji strings and image URLs */}
           {flag.startsWith("/") || flag.startsWith("http") ? (
             <img
               src={flag}
@@ -77,6 +76,6 @@ export function CountryCard({
           {description}
         </p>
       </div>
-    </Link>
+    </SoundLink>
   );
 }

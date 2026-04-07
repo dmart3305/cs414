@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { LessonRunner } from "@/components/lesson-runner";
 import { ArrowLeft } from "lucide-react";
+import { SoundLink } from "@/components/sound-link";
 import Link from "next/link";
 
 const CATEGORY_MAP: Record<string, string> = {
@@ -48,13 +49,13 @@ export default async function LessonPage({
       />
 
       <main className="mx-auto max-w-3xl px-4 py-8 md:px-6 md:py-12">
-        <Link
-          href={`/protected/country/${slug}/${category}`}
-          className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to lessons
-        </Link>
+      <SoundLink
+        href={`/protected/country/${slug}/${category}`}
+        className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back to lessons
+      </SoundLink>
 
         <h1 className="text-2xl font-bold text-foreground tracking-tight mb-2 md:text-3xl text-balance">
           {categoryName} — Beginner
@@ -67,11 +68,11 @@ export default async function LessonPage({
             </div>
           }
         >
-          <LessonRunner
-            countrySlug={slug}
-            categorySlug={category}
-            lessonSlug={lesson}
-          />
+        <LessonRunner
+          countrySlug={slug}
+          categorySlug={category}
+          lessonSlug={lesson}
+        />
         </Suspense>
       </main>
     </div>

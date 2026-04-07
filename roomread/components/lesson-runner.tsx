@@ -4,6 +4,7 @@ import { BackgroundPattern } from "./background-pattern";
 import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useSound } from "@/lib/use-sound";
 import { CheckCircle2, XCircle, ArrowRight, Trophy, Star, X } from "lucide-react";
 
 /* =========================
@@ -63,16 +64,7 @@ export function LessonRunner({
   const [newLevel, setNewLevel] = useState(0);
 
   //sounds
-  const correctSound = useRef<HTMLAudioElement | null>(null);
-  const incorrectSound = useRef<HTMLAudioElement | null>(null);
-
-  if (!correctSound.current) {
-    correctSound.current = new Audio("/sound effects/correct.mp3");
-  }
-
-  if (!incorrectSound.current) {
-    incorrectSound.current = new Audio("/sound effects/incorrect.mp3");
-  }
+  const { play } = useSound();
 
   //fetch lesson
   useEffect(() => {
@@ -153,20 +145,16 @@ export function LessonRunner({
 
     //plays with sounds
     if (correct) {
-      if (correctSound.current) {
-        correctSound.current.currentTime = 0;
-        correctSound.current.play();
-      }
+      play("correct");
       setShowExplanation(true);
     } else {
-      if (incorrectSound.current) {
-        incorrectSound.current.currentTime = 0;
-        incorrectSound.current.play();
-      }
+      play("wrong");
     }
   }
 
   function handleReturnToCategories() {
+    play("click");
+    
     const existingCompleted = searchParams.get("completed") || "";
     const completedSet = new Set(
       existingCompleted ? existingCompleted.split(",") : []
@@ -383,7 +371,10 @@ export function LessonRunner({
           </p>
 
           <button
-            onClick={handleNext}
+            onClick={() => {
+              play("click");
+              handleNext();
+            }}
             className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             Continue
@@ -474,7 +465,10 @@ export function LessonRunner({
               </div>
 
               <button
-                onClick={handleNext}
+                onClick={() => {
+                  play("click");
+                  handleNext();
+                }}
                 className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
               >
                 {currentIndex + 1 >= lesson.content.length
