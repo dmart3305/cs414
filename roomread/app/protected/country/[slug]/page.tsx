@@ -25,10 +25,10 @@ const COUNTRIES: Record<
     description:
       "Discover France, the world's top tourist destination, renowned for its rich history, iconic art, fashion, and cuisine.",
     images: [
-      "/Francephotos/france7.jpg",
-      "/Francephotos/france8.jpg",
+      "/Francephotos/france9.jpg",
+      "/Francephotos/france10.jpg",
       "/Francephotos/france3.jpg",
-      "/Francephotos/france4.jpg",
+      "/Francephotos/france11.jpg",
       "/Francephotos/france9.webp",
       "/Francephotos/france6.jpg",
     ],

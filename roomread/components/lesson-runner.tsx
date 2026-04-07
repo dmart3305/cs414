@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSound } from "@/lib/use-sound";
 import { CheckCircle2, XCircle, ArrowRight, Trophy, Star, X } from "lucide-react";
+import { MatchingGame } from "./matching-game";
 
 /* =========================
    Types
@@ -26,6 +27,13 @@ type LessonBlock =
       options: string[];
       correctIndex: number;
       explanation: string;
+    }
+   |{
+      type: "matching";
+      pairs: {
+        name: string;
+        image: string;
+      }[];
     };
 
 interface Lesson {
@@ -362,7 +370,7 @@ export function LessonRunner({
             <img
               src={block.image.src}
               alt={block.image.alt}
-              className="w-full h-48 object-cover rounded-md mb-6"
+              className="w-full h-48 object-contain rounded-md mb-6"
             />
           )}
 
@@ -478,6 +486,18 @@ export function LessonRunner({
               </button>
             </div>
           )}
+        </div>
+      )}
+      {/* ================= MATCHING BLOCK ================= */}
+      {block.type === "matching" && (
+        <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+          <MatchingGame
+            block={block}
+            onComplete={() => {
+              play("click");
+              handleNext();
+            }}
+          />
         </div>
       )}
     </div>

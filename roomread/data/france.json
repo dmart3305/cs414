@@ -214,28 +214,61 @@
         "content": [
           {
             "type": "text",
+            "image": {
+              "src": "/quizphotos/notredame.webp", 
+              "alt": "The Notre-Dame Cathedral in Paris, one of the most famous religious sites in France"
+            },
             "text": "France has a deeply rooted Catholic tradition, and its most visited sacred sites reflect that heritage. Among the most well-known are Notre-Dame de Paris, the Sanctuary of Our Lady of Lourdes, Mont-Saint-Michel, and Rocamadour. Each of these sites draws millions of visitors every year and remains an active place of worship, not just a tourist attraction."
           },
           {
             "type": "text",
             "text": "Lourdes, in southwest France, is one of the most important Christian pilgrimage sites in the world, attracting around five million visitors annually. In 1858, a young girl named Bernadette Soubirous reported visions of the Virgin Mary there. The Catholic Church has since recognized dozens of miraculous healings attributed to the site's spring waters, making Lourdes a destination for pilgrims seeking spiritual comfort and healing.",
             "image": {
-              "src": "", 
+              "src": "/quizphotos/lourdes.jpg", 
               "alt": "The Basilica of Our Lady of Lourdes, a major pilgrimage site in France"
             }
 
           },
           {
             "type": "text",
+            "image": {
+              "src": "/quizphotos/mountsaintmichael.jpg", 
+              "alt": "Mont-Saint-Michel, a dramatic island abbey and pilgrimage site in Normandy, France"
+            },
             "text": "Mont-Saint-Michel is a dramatic island abbey rising from the sea off the coast of Normandy. It has been a place of pilgrimage since the 8th century, when it was dedicated to the Archangel Michael. Today it is a UNESCO World Heritage Site and receives over three million visitors per year, while still serving as an active monastic community."
           },
           {
             "type": "text",
+             "image": {
+              "src": "/quizphotos/rocamadour.jpg", 
+              "alt": "Rocamadour, a cliffside pilgrimage site in southwest France"
+            },
             "text": "Rocamadour, dramatically built into a cliff face in southwest France, is another major pilgrimage destination. It is home to a revered 12th-century Black Madonna and has drawn pilgrims for centuries as a stop along the Way of Saint James — the famous pilgrimage route leading to Santiago de Compostela in Spain."
           },
           {
             "type": "text",
+            "image": {
+              "src": "/quizphotos/grandmosque.jpg", 
+              "alt": "The grand mosque of Paris, an important Muslim sacred site in France"
+            },
             "text": "France is also home to important non-Christian sacred sites. The Grand Mosque of Paris, built in the 1920s to honor Muslim soldiers who died in World War I, is the oldest mosque on mainland France and welcomes visitors. The Grand Synagogue of Lyon is one of the most historically significant Jewish sites in the country. Each type of sacred site may have its own specific entry customs, so it is worth researching guidelines before your visit."
+          },
+          {
+            "type": "matching",
+            "pairs": [
+              {
+                "name": "Mont-Saint-Michel",
+                "image": "/quizphotos/mountsaintmichael.jpg"
+              },
+              {
+                "name": "Rocamadour",
+                "image": "/quizphotos/rocamadour.jpg"
+              },
+              {
+                "name": "The Grand Mosque of Paris",
+                "image": "/quizphotos/grandmosque.jpg"
+              }
+            ]
           },
           {
             "type": "text",
