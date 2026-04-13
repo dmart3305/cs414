@@ -6,6 +6,7 @@ import { CountryCategories } from "@/components/country-categories";
 import { ImageSlideshow } from "@/components/image-slideshow";
 import { ArrowLeft } from "lucide-react";
 import { SoundLink } from "@/components/sound-link";
+import { FadeInUp, PopIn } from "@/components/animations";
 
 // Country Description
 const COUNTRIES: Record<
@@ -66,55 +67,63 @@ export default async function CountryPage({
       <main className="mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-12">
         
         {/* Back button */}
-        <SoundLink
-          href="/protected"
-          className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back to all countries
-        </SoundLink>
+        <FadeInUp delay={100}>
+          <SoundLink
+            href="/protected"
+            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to all countries
+          </SoundLink>
+        </FadeInUp>
 
         {/* SLIDESHOW */}
-        <ImageSlideshow images={country.images} />
+        <FadeInUp delay={200}>
+          <ImageSlideshow images={country.images} />
+        </FadeInUp>
 
         {/* Country Info */}
         <section className="mb-10">
-          <div className="flex items-start gap-4">
-            {/* Flag - supports both emoji strings and image URLs */}
-            {country.flag.startsWith("/") || country.flag.startsWith("http") ? (
-              <img
-                src={country.flag}
-                alt={`${country.name} flag`}
-                className="h-12 w-18 md:h-14 md:w-20 rounded object-cover shadow-sm"
-              />
-            ) : (
-              <span
-                className="text-5xl md:text-6xl"
-                role="img"
-                aria-label={`${country.name} flag`}
-              >
-                {country.flag}
-              </span>
-            )}
-            <div>
-              <h1 className="text-3xl font-bold text-foreground tracking-tight md:text-4xl text-balance">
-                {country.name}
-              </h1>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {country.region}
-              </p>
-              <p className="mt-3 text-base text-muted-foreground leading-relaxed max-w-2xl">
-                {country.description}
-              </p>
+          <PopIn delay={300}>
+            <div className="flex items-start gap-4">
+              {/* Flag - supports both emoji strings and image URLs */}
+              {country.flag.startsWith("/") || country.flag.startsWith("http") ? (
+                <img
+                  src={country.flag}
+                  alt={`${country.name} flag`}
+                  className="h-12 w-18 md:h-14 md:w-20 rounded object-cover shadow-sm"
+                />
+              ) : (
+                <span
+                  className="text-5xl md:text-6xl"
+                  role="img"
+                  aria-label={`${country.name} flag`}
+                >
+                  {country.flag}
+                </span>
+              )}
+              <div>
+                <h1 className="text-3xl font-bold text-foreground tracking-tight md:text-4xl text-balance">
+                  {country.name}
+                </h1>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {country.region}
+                </p>
+                <p className="mt-3 text-base text-muted-foreground leading-relaxed max-w-2xl">
+                  {country.description}
+                </p>
+              </div>
             </div>
-          </div>
+          </PopIn>
         </section>
 
         {/* Categories */}
         <section>
-          <h2 className="text-xl font-bold text-foreground tracking-tight mb-5">
-            {"Explore etiquette in " + country.name}
-          </h2>
+          <FadeInUp delay={400}>
+            <h2 className="text-xl font-bold text-foreground tracking-tight mb-5">
+              {"Explore etiquette in " + country.name}
+            </h2>
+          </FadeInUp>
 
           <Suspense
             fallback={
