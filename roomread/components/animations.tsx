@@ -11,7 +11,7 @@ interface FadeInProps {
 export function FadeInUp({ children, delay = 0, className = "" }: FadeInProps) {
   return (
     <div
-      className={`animate-fade-in-up h-full ${className}`}
+      className={`animate-fade-in-up ${className}`}
       style={{ animationDelay: `${delay}ms`, animationFillMode: "both" }}
     >
       {children}

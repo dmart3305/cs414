@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, CheckCircle2, Flame, Zap, Trophy } from "lucide-react";
 import { BackgroundPattern } from "@/components/background-pattern";
 import { createClient } from "@/lib/supabase/server";
+import { FadeInUp, PopIn } from "@/components/animations";
 
 const LESSONS = [
   {
@@ -58,27 +59,33 @@ export default async function CategoryPage({
     <div className="max-w-4xl mx-auto py-10 px-4 bg-gradient-to-b from-background to-muted/30 rounded-xl">
       <BackgroundPattern country={slug} />
 
-      {/* 🔊 Back Button with sound */}
-      <SoundLink
-        href={`/protected/country/${slug}`}
-        className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to country
-      </SoundLink>
+      {/* Back Button with sound */}
+      <FadeInUp delay={100}>
+        <SoundLink
+          href={`/protected/country/${slug}`}
+          className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to country
+        </SoundLink>
+      </FadeInUp>
 
       {/* Title */}
-      <h1 className="text-2xl font-bold mb-2 capitalize">
-        {category.replace(/-/g, " ")} Lessons
-      </h1>
+      <PopIn delay={200}>
+        <h1 className="text-2xl font-bold mb-2 capitalize">
+          {category.replace(/-/g, " ")} Lessons
+        </h1>
+      </PopIn>
 
-      <p className="text-sm text-muted-foreground mb-6">
-        Complete beginner lessons to unlock intermediate content.
-      </p>
+      <FadeInUp delay={300}>
+        <p className="text-sm text-muted-foreground mb-6">
+          Complete beginner lessons to unlock intermediate content.
+        </p>
+      </FadeInUp>
 
       {/* Lesson Cards */}
       <div className="relative z-10 grid gap-4">
-        {LESSONS.map((lesson) => {
+        {LESSONS.map((lesson, index) => {
           const href = `/protected/country/${slug}/${category}/${lesson.slug}`;
           const isCompleted = completedLessons.includes(lesson.slug);
 
@@ -100,8 +107,8 @@ export default async function CategoryPage({
 
           if (lesson.locked) {
             return (
+              <FadeInUp key={lesson.slug} delay={400 + index * 100}>
               <div
-                key={lesson.slug}
                 className="relative rounded-xl border p-5 bg-muted/50 opacity-70"
               >
                 <div className="absolute inset-0 flex items-center justify-center z-10">
@@ -127,15 +134,15 @@ export default async function CategoryPage({
                   </p>
                 </div>
               </div>
+              </FadeInUp>
             );
           }
 
-          // 🔊 CLICK SOUND ADDED HERE
           return (
+            <FadeInUp key={lesson.slug} delay={400 + index * 100}>
             <SoundLink
-              key={lesson.slug}
               href={href}
-              className={`group relative rounded-xl border p-5 bg-card transition-all duration-300 transform hover:scale-[1.04] hover:-translate-y-1 hover:shadow-xl hover:border-primary/30 ${
+              className={`block group relative rounded-xl border p-5 bg-card transition-all duration-300 transform hover:scale-[1.04] hover:-translate-y-1 hover:shadow-xl hover:border-primary/30 ${
                 isCompleted ? "border-primary/40 bg-primary/5" : ""
               }`}
             >
@@ -169,6 +176,7 @@ export default async function CategoryPage({
                 </div>
               </div>
             </SoundLink>
+            </FadeInUp>
           );
         })}
       </div>
