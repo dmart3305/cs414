@@ -2,6 +2,7 @@
 
 import { BackgroundPattern } from "@/components/background-pattern";
 import { SoundLink } from "@/components/sound-link";
+import { FadeInUp } from "@/components/animations";
 import useSWR from "swr";
 import {
   Utensils,
@@ -89,17 +90,17 @@ export function CountryCategories({ slug }: { slug: string }) {
 
       {/* Content */}
       <div className="relative z-10 grid grid-cols-1 gap-4 md:grid-cols-2">
-        {CATEGORIES.map((category) => {
+        {CATEGORIES.map((category, index) => {
           const isCompleted = completedCategories.has(category.slug);
           const Icon = category.icon;
 
           const quizHref = `/protected/country/${slug}/${category.slug}`;
 
           return (
+            <FadeInUp key={category.title} delay={index * 100}>
             <SoundLink
-              key={category.title}
               href={quizHref}
-              className={`group flex items-start gap-4 rounded-xl border p-5 transition-all duration-300 transform hover:scale-[1.03] hover:-translate-y-1 hover:shadow-lg ${
+              className={`block group flex items-start gap-4 rounded-xl border p-5 transition-all duration-300 transform hover:scale-[1.03] hover:-translate-y-1 hover:shadow-lg ${
                 isCompleted
                   ? "border-primary/40 bg-primary/5"
                   : "border-border bg-card hover:border-primary/30"
@@ -144,6 +145,7 @@ export function CountryCategories({ slug }: { slug: string }) {
                 </p>
               </div>
             </SoundLink>
+            </FadeInUp>
           );
         })}
       </div>
