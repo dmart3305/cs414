@@ -142,7 +142,7 @@ export default async function CategoryPage({
             <FadeInUp key={lesson.slug} delay={400 + index * 100}>
             <SoundLink
               href={href}
-              className={`group relative rounded-xl border p-5 bg-card transition-all duration-300 transform hover:scale-[1.04] hover:-translate-y-1 hover:shadow-xl hover:border-primary/30 ${
+              className={`block group relative rounded-xl border p-5 bg-card transition-all duration-300 transform hover:scale-[1.04] hover:-translate-y-1 hover:shadow-xl hover:border-primary/30 ${
                 isCompleted ? "border-primary/40 bg-primary/5" : ""
               }`}
             >
