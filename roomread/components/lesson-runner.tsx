@@ -70,6 +70,8 @@ export function LessonRunner({
   const [completed, setCompleted] = useState(false);
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [newLevel, setNewLevel] = useState(0);
+  const [blockKey, setBlockKey] = useState(0);
+  const [animating, setAnimating] = useState(false);
 
   //sounds
   const { play } = useSound();
@@ -129,13 +131,22 @@ export function LessonRunner({
     if (!lesson) return;
 
     if (currentIndex + 1 >= lesson.content.length) {
-      setCompleted(true);
-      saveProgress();
+      setAnimating(true);
+      setTimeout(() => {
+        setCompleted(true);
+        saveProgress();
+        setAnimating(false);
+      }, 300);
     } else {
-      setCurrentIndex((prev) => prev + 1);
-      setSelectedOption(null);
-      setIsCorrect(null);
-      setShowExplanation(false);
+      setAnimating(true);
+      setTimeout(() => {
+        setCurrentIndex((prev) => prev + 1);
+        setSelectedOption(null);
+        setIsCorrect(null);
+        setShowExplanation(false);
+        setBlockKey((prev) => prev + 1);
+        setAnimating(false);
+      }, 300);
     }
   }
 
@@ -252,8 +263,8 @@ export function LessonRunner({
           </div>
         )}
 
-        <div className="rounded-xl border border-primary/30 bg-card p-8 md:p-12 text-center">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 mb-6">
+        <div className="rounded-xl border border-primary/30 bg-card p-8 md:p-12 text-center animate-in fade-in zoom-in-95 duration-500">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 mb-6 animate-in zoom-in-50 duration-700 delay-200">
             <Trophy className="h-8 w-8 text-primary" />
           </div>
 
@@ -365,7 +376,12 @@ export function LessonRunner({
 
       {/* ================= TEXT BLOCK ================= */}
       {block.type === "text" && (
-        <div className="relative z-10 rounded-xl border border-border bg-card p-6 md:p-8">
+        <div
+          key={blockKey}
+          className={`relative z-10 rounded-xl border border-border bg-card p-6 md:p-8 transition-all duration-300 ${
+            animating ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0"
+          }`}
+        >
           {block.image && (
             <img
               src={block.image.src}
@@ -393,7 +409,12 @@ export function LessonRunner({
 
       {/* ================= QUESTION BLOCK ================= */}
       {block.type === "question" && (
-        <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+        <div
+          key={blockKey}
+          className={`rounded-xl border border-border bg-card p-6 md:p-8 transition-all duration-300 ${
+            animating ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0"
+          }`}
+        >
           <h3 className="text-lg font-semibold text-card-foreground mb-6 leading-relaxed">
             {block.question}
           </h3>
@@ -457,7 +478,7 @@ export function LessonRunner({
           )}
 
           {showExplanation && (
-            <div className="mt-6">
+            <div className="mt-6 animate-in fade-in slide-in-from-bottom-3 duration-300">
               <div className="rounded-lg bg-primary/5 border border-primary/20 p-4 mb-4">
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
@@ -490,7 +511,12 @@ export function LessonRunner({
       )}
       {/* ================= MATCHING BLOCK ================= */}
       {block.type === "matching" && (
-        <div className="rounded-xl border border-border bg-card p-6 md:p-8">
+        <div
+          key={blockKey}
+          className={`rounded-xl border border-border bg-card p-6 md:p-8 transition-all duration-300 ${
+            animating ? "opacity-0 translate-x-4" : "opacity-100 translate-x-0"
+          }`}
+        >
           <MatchingGame
             block={block}
             onComplete={() => {
