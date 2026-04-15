@@ -6,6 +6,7 @@ import { LessonRunner } from "@/components/lesson-runner";
 import { ArrowLeft } from "lucide-react";
 import { SoundLink } from "@/components/sound-link";
 import Link from "next/link";
+import { FadeInUp, PopIn } from "@/components/animations";
 
 const CATEGORY_MAP: Record<string, string> = {
   "dining-etiquette": "Dining Etiquette",
@@ -49,31 +50,37 @@ export default async function LessonPage({
       />
 
       <main className="mx-auto max-w-3xl px-4 py-8 md:px-6 md:py-12">
-      <SoundLink
-        href={`/protected/country/${slug}/${category}`}
-        className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to lessons
-      </SoundLink>
+        <FadeInUp delay={100}>
+          <SoundLink
+            href={`/protected/country/${slug}/${category}`}
+            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-6"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to lessons
+          </SoundLink>
+        </FadeInUp>
 
-        <h1 className="text-2xl font-bold text-foreground tracking-tight mb-2 md:text-3xl text-balance">
-          {categoryName} — Beginner
-        </h1>
+        <PopIn delay={200}>
+          <h1 className="text-2xl font-bold text-foreground tracking-tight mb-2 md:text-3xl text-balance">
+            {categoryName} — Beginner
+          </h1>
+        </PopIn>
 
-        <Suspense
-          fallback={
-            <div className="flex items-center justify-center py-20">
-              <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-            </div>
-          }
-        >
-        <LessonRunner
-          countrySlug={slug}
-          categorySlug={category}
-          lessonSlug={lesson}
-        />
-        </Suspense>
+        <FadeInUp delay={350}>
+          <Suspense
+            fallback={
+              <div className="flex items-center justify-center py-20">
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+              </div>
+            }
+          >
+            <LessonRunner
+              countrySlug={slug}
+              categorySlug={category}
+              lessonSlug={lesson}
+            />
+          </Suspense>
+        </FadeInUp>
       </main>
     </div>
   );
