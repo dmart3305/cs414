@@ -67,7 +67,9 @@ export function CountryCard({
 
             <div className="flex items-center gap-1 mt-1">
               <MapPin className="h-3 w-3 text-muted-foreground" />
-              <span className="text-xs text-muted-foreground">{region}</span>
+              <span className="text-xs text-muted-foreground whitespace-pre-line">
+                {region}
+              </span>
             </div>
           </div>
         </div>
