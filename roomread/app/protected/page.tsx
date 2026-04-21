@@ -21,39 +21,44 @@ const FEATURED_COUNTRIES = [
     image: "/Francephotos/france2.jpg",
   },
   {
-    name: "Placeholder",
-    region: "Placeholder",
+    name: "Japan",
+    region: "Asia",
     description:
-      "Placeholder",
-    flag: "",
+      " ",
+    flag: '/Japanphotos/Flag_of_Japan.svg.webp',
+    image: "/Japanphotos/2.jpg",
   },
   {
-    name: "Placeholder",
-    region: "Placeholder",
+    name: "Italy",
+    region: "Europe",
     description:
       "Placeholder",
-    flag: "",
+    flag: "/Italy photos/untitled.png",
+    image: "/Italy photos/Italy.avif",
   },
   {
-    name: "Placeholder",
-    region: "Placeholder",
+    name: "Brazil",
+    region: "South America",
     description:
       "Placeholder",
-    flag: "",
+    flag: "/Brazil photos/Untitled2.png",
+    image: "Brazil photos/Brazil.jpg",
   },
   {
-    name: "Placeholder",
-    region: "Placeholder",
+    name: "Ireland",
+    region: "Europe",
     description:
       "Placeholder",
-    flag: "",
+    flag: "/Ireland photos/Flag_of_Ireland.svg.png",
+    image: "/Ireland photos/Ireland.jpg",
   },
   {
-    name: "Placeholder",
-    region: "Placeholder",
+    name: "China",
+    region: "Asia",
     description:
       "Placeholder",
-    flag: "",
+    flag: "/China photos/Untitled3.png",
+    image: "/China photos/China.jpg",
   },
 ];
 
